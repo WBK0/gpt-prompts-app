@@ -14,7 +14,7 @@ const Searchbar = () => {
         placeholder='Search by tag or prompt'
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className='w-full px-4 py-2 text-lg font-gilroyBold text-gray-800 drop-shadow bg-slate-50 border border-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent'
+        className='w-full px-4 py-2 text-lg font-gilroyBold text-gray-800 drop-shadow bg-slate-50 border border-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent z-0'
       />
       {/* Buttons component */}
       <Buttons />
