@@ -16,7 +16,7 @@ const Content = () => {
         className='flex-1 flex sm:hidden justify-end items-center'
       >
         <div onClick={() => setShowResponsive(!showResponsive)}>
-          <svg width="36px" height="36px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="#ffffff"><path fill-rule="evenodd" clip-rule="evenodd" d="M14 5H2V3h12v2zm0 4H2V7h12v2zM2 13h12v-2H2v2z"/></svg>
+          <svg width="36px" height="36px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="#ffffff"><path fillRule="evenodd" clipRule="evenodd" d="M14 5H2V3h12v2zm0 4H2V7h12v2zM2 13h12v-2H2v2z"/></svg>
         </div>
       </div>
       { // Responsive menu for mobile devices 
