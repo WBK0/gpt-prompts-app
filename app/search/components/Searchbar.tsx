@@ -20,7 +20,7 @@ const Searchbar : React.FC<ISearchbar> = ({ param }) => {
   }
 
   return (
-    <div className='my-4'>
+    <div className='py-4'>
       <form className='flex w-full lg:w-1/2 mx-auto px-3' onSubmit={handleSubmit}>
         <input 
           type='text' 
