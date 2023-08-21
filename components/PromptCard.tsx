@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -17,8 +17,8 @@ const PromptCard = ({ prompt }: PromtCardProps) => {
       <div className='px-4 py-3 flex justify-between items-center'>
         <h2 className='text-xl font-gilroyBold w-full'>{prompt.title}</h2>
         <div className='flex items-center'>
-          <button className='text-gray-200 font-bold py-2 px-2 text-3xl rounded-xl'>
-            <FontAwesomeIcon icon={faHeart} />
+          <button className='text-gray-200 font-bold py-1 px-1 text-3xl rounded-xl' >
+            <FontAwesomeIcon icon={faHeart} width={32} height={32}/>
           </button>
       </div>
       </div>
