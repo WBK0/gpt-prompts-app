@@ -1,6 +1,7 @@
 import React from 'react'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Tags from './Tags';
 
 interface PromtCardProps {
   prompt: {
@@ -24,11 +25,7 @@ const PromptCard = ({ prompt }: PromtCardProps) => {
       </div>
       <div className='p-4 flex-1 flex flex-wrap flex-col'>
         <p className='text-gray-700 font-gilroyLight mb-4 w-full'>{prompt.content}</p>
-        <div className='flex flex-wrap grow items-end h-100'>
-          {prompt.tags && prompt.tags.map(tag => (
-            <span key={tag} className='bg-gray-200 text-gray-700 rounded-full px-3 py-1 text-sm font-gilroyMedium mr-2 mb-2 '>{tag}</span>
-          ))}
-        </div>
+        <Tags tags={prompt.tags} />
       </div>
       <div className='bg-gray-100 px-4 py-3 flex justify-end'>
         <button className='bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-xl'>

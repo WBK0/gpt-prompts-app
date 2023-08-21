@@ -1,7 +1,11 @@
-import Image from 'next/image';
-import DOMPurify from 'isomorphic-dompurify';
 import PromptCard from '@components/PromptCard';
-import gptLogo from '@assets/gpt-logo.png';
+import GptAnswer from './components/GptAnswer';
+import Content from './components/Content';
+import Title from './components/Title';
+import Creator from './components/Creator';
+import Tags from '@components/Tags';
+import AddToFavourite from './components/AddToFavourite';
+import OtherPrompts from './components/OtherPrompts';
 
 const prompt = {
   id: 1,
@@ -65,75 +69,21 @@ const prompt = {
   favourites: 321,
 }
 
-const sanitizedAnswer = DOMPurify.sanitize(prompt.gptAnswer);
-
-const otherPrompts = [
-  {
-    id: 2,
-    title: 'How to improve your website SEO',
-    content: 'Learn how to optimize your website for search engines and improve your search engine rankings.',
-    favourites: 123,
-    tags: ['seo', 'marketing', 'business', 'sales', 'brand awareness', 'leads'],
-  },
-  {
-    id: 3,
-    title: 'How to create a successful email marketing campaign',
-    content: 'Learn how to create an effective email marketing campaign that drives conversions and builds customer loyalty.',
-    favourites: 456,
-    tags: ['seo', 'marketing', 'business', 'sales', 'brand awareness', 'leads'],
-  },
-  {
-    id: 4,
-    title: 'How to use social media for customer service',
-    content: 'Learn how to use social media to provide excellent customer service and build brand loyalty.',
-    favourites: 789,
-    tags: ['seo', 'marketing', 'business', 'sales', 'brand awareness', 'leads'],
-  },
-];
-
 const PromptSite = () => {
 
   return (
     <div className="mt-6">
       <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
         <div className="px-4 lg:px-6 lg:py-6 py-4">
-          <h1 className="text-3xl font-gilroyBold text-gray-900">{prompt.title}</h1>
-          <div className="mt-4">
-            <p className="text-gray-500 text-sm font-gilroyLight">{prompt.createdBy} | {prompt.createdAt}</p>
-          </div>
-          <div className="mt-6">
-            <p className="text-lg text-gray-500 font-gilroyMedium">{prompt.content}</p>
-          </div>
-          <div className="mt-6 bg-black px-5 py-5 rounded-md">
-            <h2 className="text-xl font-gilroyBold text-white flex items-center">
-              <Image src={gptLogo} width={24} alt="gpt logo" className="mr-2" />
-              Przykładowa odpowiedź GPT:
-            </h2>
-            <div className="mt-2 text-gray-200 font-gilroyLight " dangerouslySetInnerHTML={{ __html: sanitizedAnswer }}></div>
-          </div>
-          <div className='flex flex-wrap mt-4'>
-            {prompt.tags && prompt.tags.map(tag => (
-              <span key={tag} className='bg-gray-200 text-gray-700 rounded-full px-3 py-1 text-sm font-gilroyMedium mr-2 mb-2 '>{tag}</span>
-            ))}
-          </div>
+          <Title title={prompt.title} />
+          <Creator createdAt={prompt.createdAt} createdBy={prompt.createdBy} />
+          <Content content={prompt.content} />
+          <GptAnswer answer={prompt.gptAnswer} />
+          <Tags tags={prompt.tags} />
         </div>
-        <div className="px-6 py-4 bg-gray-100 flex items-center">
-          <button className="bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1">
-            <svg className="h-5 w-5 fill-current text-gray-500" viewBox="0 0 24 24">
-              <path d="M12 21.35l-1.45-1.32C4.54 14.35 2 11.08 2 7.5 2 4.42 4.42 2 7.5 2c2.34 0 4.47 1.19 5.74 3.16C14.03 3.19 16.16 2 18.5 2 21.58 2 24 4.42 24 7.5c0 3.58-2.54 6.85-8.55 12.53L12 21.35z"/>
-            </svg>
-          </button>
-          <span className="text-gray-500 font-gilroyBold ml-2">{prompt.favourites}</span>
-        </div>
+        <AddToFavourite favourites={prompt.favourites} />
       </div>
-      <div className="mt-12 mb-12 max-w-6xl mx-auto">
-        <h2 className="text-2xl font-gilroyBold text-gray-900 mb-4 px-4">Inne propozycje:</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {otherPrompts.map(prompt => (
-            <PromptCard key={prompt.id} prompt={prompt} />
-          ))}
-        </div>
-      </div>
+      <OtherPrompts />
     </div>
   )
 }
