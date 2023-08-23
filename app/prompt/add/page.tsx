@@ -9,8 +9,8 @@ import SubmitButton from './components/SubmitButton';
 // PromptForm component - renders the form for adding a new prompt
 const PromptForm = () => {
   // State variables for the form
-  const [title, setTitle] = useState('')
-  const [prompt, setPrompt] = useState('')
+  const [title, setTitle] = useState<string>('')
+  const [prompt, setPrompt] = useState<string>('')
   const [tags, setTags] = useState<string[]>([])
 
   return (
