@@ -8,6 +8,8 @@ const LoginButton = () => {
   const { data: session } = useSession();
   const [providers, setProviders] = useState<Record<LiteralUnion<BuiltInProviderType>, ClientSafeProvider> | null>(null);
 
+  console.log(session)
+
   useEffect(() => {
     const fetchProviders = async () => {
       const res = await getProviders();

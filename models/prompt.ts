@@ -1,0 +1,26 @@
+import { Schema, model, models } from 'mongoose';
+
+const PromptSchema = new Schema({
+  creator: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  title: {
+    type: String,
+    required: [true, 'Title is required!'],
+    maxLength: [64, 'Title cannot be more than 64 characters!'],
+  },
+  content: {
+    type: String,
+    required: [true, 'Prompt content is required!'],
+    maxLength: [2048, 'Prompt cannot be more than 2048 characters!'],
+  },
+  response: {
+    type: String,
+    maxLength: [4096, 'Response cannot be more than 2048 characters!'],
+  }
+});
+
+const Prompt = models.Prompt || model("Prompt", PromptSchema);
+
+export default Prompt;
