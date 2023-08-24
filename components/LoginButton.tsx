@@ -5,10 +5,7 @@ import { BuiltInProviderType } from '@node_modules/next-auth/providers';
 
 // Reusable LoginButton component - displays the login button
 const LoginButton = () => {
-  const { data: session } = useSession();
   const [providers, setProviders] = useState<Record<LiteralUnion<BuiltInProviderType>, ClientSafeProvider> | null>(null);
-
-  console.log(session)
 
   useEffect(() => {
     const fetchProviders = async () => {

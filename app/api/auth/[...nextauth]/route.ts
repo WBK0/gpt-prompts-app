@@ -10,7 +10,22 @@ const handler = NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     })
   ],
+  session: {
+    strategy: "jwt",
+    maxAge: 7 * 24 * 60 * 60
+  },
   callbacks: {
+    async jwt({ token, user }) {
+      if(user) {
+        const sessionUser = await User.findOne({ email: user?.email });
+        return {
+          ...token,
+          id: sessionUser?._id.toString(),
+        }
+      }
+
+      return token;
+    },
     async session({ session }: { session: Session }) {
       // store the user id from MongoDB to session
       const sessionUser = await User.findOne({ email: session.user?.email });
@@ -34,6 +49,7 @@ const handler = NextAuth({
         // Check if user exists in MongoDB
         const userExists = await User.findOne({ email: user.email });
     
+
         // If user does not exist, create new one
         if (!userExists) {
           await User.create({

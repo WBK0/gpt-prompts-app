@@ -1,6 +1,10 @@
+import { useSession } from 'next-auth/react'
 import React, { useEffect } from 'react'
 
 const SubmitButton = () => {
+  const { data: session } = useSession()
+  console.log(session)
+  
 
   const test = async () => {
 
@@ -17,7 +21,7 @@ const SubmitButton = () => {
       },
       body: JSON.stringify(data),
     }).then((res) => {
-      console.log(res)
+      // console.log(res)
     })
   }
 

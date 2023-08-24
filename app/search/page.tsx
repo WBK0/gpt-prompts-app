@@ -8,7 +8,7 @@ const Search = () => {
   // Get search params from url
   const searchParams = useSearchParams()
 
-  console.log(searchParams.get('search'))
+  // console.log(searchParams.get('search'))
 
   return(
     <div>
