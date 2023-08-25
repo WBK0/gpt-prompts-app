@@ -5,6 +5,7 @@ import TitleInput from './components/TitleInput';
 import PromptInput from './components/PromptInput';
 import Tags from './components/Tags';
 import SubmitButton from './components/SubmitButton';
+import axios from 'axios';
 
 // PromptForm component - renders the form for adding a new prompt
 const PromptForm = () => {
@@ -12,6 +13,17 @@ const PromptForm = () => {
   const [title, setTitle] = useState<string>('')
   const [prompt, setPrompt] = useState<string>('')
   const [tags, setTags] = useState<string[]>([])
+
+  const handleSubmit = async (e : React.FormEvent) => {
+    e.preventDefault();
+
+    const response = await axios.post('/api/prompt/new', {
+      title: title,
+      content: prompt,
+      tags: tags,
+    })
+    console.log(response.data)
+  }
 
   return (
     <form className="max-w-4xl mx-auto mt-8 mb-8">
@@ -22,7 +34,7 @@ const PromptForm = () => {
           <PromptInput prompt={prompt} setPrompt={setPrompt} />
           <Tags tags={tags} setTags={setTags} />
         </div>
-        <SubmitButton />
+        <SubmitButton handleSubmit={handleSubmit} />
       </div>
     </form>
   )
