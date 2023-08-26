@@ -23,7 +23,11 @@ const PromptSchema = new Schema({
   response: {
     type: String,
     maxLength: [4096, 'Response cannot be more than 4096 characters!'],
-  }
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const Prompt = models.Prompt || model("Prompt", PromptSchema);
