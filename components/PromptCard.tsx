@@ -2,7 +2,7 @@ import React from 'react'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tags from './Tags';
-import Prompt from '@interfaces/prompt.interface';
+import Prompt from '@interfaces/prompt.type';
 import Link from 'next/link';
 
 const PromptCard = ({ prompt }: {prompt: Prompt}) => {

@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import PromptCard from '@components/PromptCard';
 import axios from 'axios';
-import Prompt from '@interfaces/prompt.interface';
+import Prompt from '@interfaces/prompt.type';
 
 const Prompts = () => {
   const [prompts, setPrompts] = useState<Prompt[]>([]);

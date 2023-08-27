@@ -62,7 +62,7 @@ export const POST = async (request : NextRequest) => {
     }
 
     // Create new prompt and save it to database
-    const newPrompt = new Prompt({ creator: token.id, title, content, tags });
+    const newPrompt = new Prompt({ creatorId: token.id, creatorName: token.name, title, content, tags });
     const savedPrompt = await newPrompt.save();
 
     // Get id of new prompt
