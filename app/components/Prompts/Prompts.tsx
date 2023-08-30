@@ -1,27 +1,11 @@
-"use client";
+import PromptCard from "@components/PromptCard";
+import Prompt from "@interfaces/prompt.interface";
 
-import { useEffect, useState } from 'react';
-import PromptCard from '@components/PromptCard';
-import axios from 'axios';
-import Prompt from '@interfaces/prompt.type';
-
-const Prompts = () => {
-  const [prompts, setPrompts] = useState<Prompt[]>([]);
-
-  console.log(prompts)
-
-  const getPrompts = async () => {
-    try {
-      const response = await axios.get('/api/prompt');
-      setPrompts(response.data);
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  useEffect(() => {
-    getPrompts();
-  }, [])
+const Prompts = async () => {
+  const response = await fetch('http://localhost:3000/api/prompt', {
+    cache: "no-store"
+  });
+  const prompts : Prompt[] = await response.json()
 
   return (
     <div className='flex flex-col items-center mb-12'>

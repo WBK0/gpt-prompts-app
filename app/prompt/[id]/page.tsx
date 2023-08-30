@@ -1,7 +1,3 @@
-"use client";
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useParams } from 'next/navigation'
 import GptAnswer from './components/GptAnswer';
 import Content from './components/Content';
 import Title from './components/Title';
@@ -9,27 +5,18 @@ import Creator from './components/Creator';
 import Tags from '@components/Tags';
 import AddToFavourite from './components/AddToFavourite';
 import OtherPrompts from './components/OtherPrompts';
-import Prompt from '@interfaces/prompt.interface';
 
-const PromptSite = () => {
-  const params = useParams()
-
-  const [prompt, setPrompt] = useState<Prompt | null>(null);
-
-  const getPrompt = async () => {
-    try {
-      const response = await axios.get(`/api/prompt/${params.id}`);
-      setPrompt(response.data);
-    } catch (error) {
-      console.log(error)
-    }
+type PromptProps = {
+  params: {
+    id: string
   }
+}
 
-  console.log(prompt)
-
-  useEffect(() => {
-    getPrompt();
-  }, [])
+const PromptSite = async ({ params } : PromptProps) => {
+  const response = await fetch(`http://localhost:3000/api/prompt/${params.id}`, {
+    cache: "no-store"
+  })
+  const prompt = await response.json()
 
   return (
     <div className="mt-6">{
