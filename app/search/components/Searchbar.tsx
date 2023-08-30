@@ -1,17 +1,15 @@
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-
-// Searchbar props
-interface ISearchbar {
-  param: string
-}
+"use client"
+import { useRouter, useSearchParams } from "next/navigation";
+import {  useState } from "react";
 
 // Searchbar component - displays the searchbar for searching prompts
-const Searchbar : React.FC<ISearchbar> = ({ param }) => {
+const Searchbar = () => {
+  // Search params
+  const searchParams = useSearchParams();
   // router
   const router = useRouter();
   // Search state
-  const [search, setSearch] = useState<string>(param)
+  const [search, setSearch] = useState<string>(searchParams.get('search') || '')
 
   // Function to submit form - update search param
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

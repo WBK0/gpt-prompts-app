@@ -2,7 +2,7 @@ import PromptCard from '@components/PromptCard';
 import Prompt from '@interfaces/prompt.interface';
 
 const OtherPrompts = async () => {
-  const response = await fetch('http://localhost:3000/api/prompt', {
+  const response = await fetch('http://localhost:3000/api/prompt?max=3', {
     cache: "no-store"
   });
   const prompts : Prompt[] = await response.json()

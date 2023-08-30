@@ -1,33 +1,18 @@
 import React from 'react'
 import PromptCard from '@components/PromptCard'
+import Prompt from '@interfaces/prompt.interface';
 
-const prompts = [
-  {
-    id: 1,
-    title: 'How to create a successful social media marketing campaign',
-    content: 'Learn how to create a social media marketing campaign that will help you reach your target audience and achieve your business goals.',
-    tags: ['#tag1', '#tag2', '#tag3']
-  },
-  {
-    id: 2,
-    title: 'How to create a successful social media marketing campaign',
-    content: 'Learn how to create a social media marketing campaign that will help you reach your target audience and achieve your business goals.',
-    tags: ['#tag1', '#tag2', '#tag3']
-  },
-  {
-    id: 3,
-    title: 'Title',
-    content: 'Content.',
-    tags: ['#tag1', '#tag2', '#tag3']
-  }
-]
+const PromptsList = async () => {
+  const response = await fetch('http://localhost:3000/api/prompt', {
+    cache: "no-store"
+  });
+  const prompts : Prompt[] = await response.json()
 
-const PromptsList = () => {
   return (
     <div className='flex flex-col items-center px-3 py-12'>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
         {prompts.map(prompt => (
-          <PromptCard key={prompt.id} prompt={prompt} />
+          <PromptCard key={prompt._id} prompt={prompt} />
         ))}
       </div>
     </div>
