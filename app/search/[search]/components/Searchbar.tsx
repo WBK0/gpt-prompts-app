@@ -1,20 +1,20 @@
 "use client"
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import {  useState } from "react";
 
 // Searchbar component - displays the searchbar for searching prompts
 const Searchbar = () => {
   // Search params
-  const searchParams = useSearchParams();
+  const params = useParams();
   // router
   const router = useRouter();
   // Search state
-  const [search, setSearch] = useState<string>(searchParams.get('search') || '')
+  const [search, setSearch] = useState(params.search || '')
 
   // Function to submit form - update search param
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    router.push(`/search?search=${search}`)
+    router.push(`/search/${search}`)
   }
 
   return (
