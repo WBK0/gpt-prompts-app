@@ -4,7 +4,7 @@ import Prompt from '@interfaces/prompt.interface';
 import { SearchParams } from '../page';
 
 const PromptsList = async ({ params }: {params: SearchParams}) => {
-  const response = await fetch(`http://localhost:3000/api/prompt/search?search=${params.search}`, {
+  const response = await fetch(`http://localhost:3000/api/prompt/search?search=${params.search || ''}`, {
     cache: "no-store"
   });
   const prompts : Prompt[] = await response.json()

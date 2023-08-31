@@ -12,7 +12,7 @@ const Searchbar = () => {
 
   const handleSearch = (e : React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    router.push(`/search?search=${search}`);
+    router.push(`/search/${search}`);
   }
 
   return (
