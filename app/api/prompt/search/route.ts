@@ -8,7 +8,8 @@ import { getServerSession } from "next-auth";
 export const GET = async (request : NextRequest) => {
   try {
     await connectToDB(); // Connect to database
-    const session = await getServerSession(authOptions);
+    let session = await getServerSession(authOptions);
+
     const query = request.nextUrl.searchParams.get("search"); // Get search query from url
 
     let prompts = await Prompt.find({})
@@ -21,7 +22,10 @@ export const GET = async (request : NextRequest) => {
     .sort({ createdAt: -1 }).limit(12);
 
     prompts = prompts.map(prompt => {
-      const isLiked = prompt.favoritesUserIds.includes(session.user?.id);
+      let isLiked = false;
+      if(session){
+        isLiked = prompt.favoritesUserIds.includes(session.user?.id);
+      }
       return { ...prompt.toObject(), isLiked };
     }); 
     

@@ -28,7 +28,7 @@ export const PATCH = async (request: NextRequest, { params: { id, action } }: { 
       }
     }else if(action === 'dislike'){
       if(prompt.favoritesUserIds.includes(token.id)){
-        prompt.favoritesUserIds = prompt.favoritesUserIds.filter(userId => userId.toString() !== token.id); // Remove user id from favoritesUserIds
+        prompt.favoritesUserIds = prompt.favoritesUserIds.filter((userId : string) => userId.toString() !== token.id); // Remove user id from favoritesUserIds
         prompt.favorites -= 1;
         await prompt.save();
         prompt = {
