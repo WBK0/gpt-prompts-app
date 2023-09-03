@@ -23,7 +23,6 @@ const addAnswer = async (content : string, id: number) => {
   } catch (error) {
     console.log(error)
     setTimeout(() => {
-      console.log('lecymy dur')
       addAnswer(content, id)
     }, 10000)
   }

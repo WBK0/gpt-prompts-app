@@ -7,9 +7,6 @@ export type SearchParams = {
 
 // Search component - displays the search page
 const Search = async ({ params }: {params: SearchParams}) => {
-
-  console.log(params)
-
   return(
     <div>
       <Searchbar /> 

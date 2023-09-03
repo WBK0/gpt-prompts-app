@@ -8,4 +8,5 @@ export default interface Prompt {
   response?: string;
   createdAt: Date;
   favorites: number;
+  isLiked?: boolean;
 }

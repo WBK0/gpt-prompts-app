@@ -22,7 +22,6 @@ const PromptForm = () => {
       content: prompt,
       tags: tags,
     })
-    console.log(response.data)
   }
 
   return (

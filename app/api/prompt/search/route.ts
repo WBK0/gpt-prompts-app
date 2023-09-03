@@ -1,15 +1,17 @@
 import Prompt from "@models/prompt";
 import { connectToDB } from "@utils/database";
 import { NextRequest } from "next/server";
+import { authOptions } from "../../auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
 
 // Get prompt by search query
 export const GET = async (request : NextRequest) => {
   try {
     await connectToDB(); // Connect to database
-
+    const session = await getServerSession(authOptions);
     const query = request.nextUrl.searchParams.get("search"); // Get search query from url
 
-    const prompts = await Prompt.find({})
+    let prompts = await Prompt.find({})
     .find(
       {
         $or: [
@@ -18,6 +20,11 @@ export const GET = async (request : NextRequest) => {
         ],})
     .sort({ createdAt: -1 }).limit(12);
 
+    prompts = prompts.map(prompt => {
+      const isLiked = prompt.favoritesUserIds.includes(session.user?.id);
+      return { ...prompt.toObject(), isLiked };
+    }); 
+    
     // Return response
     return new Response(JSON.stringify(prompts), { status: 200 })
   } catch (error) {

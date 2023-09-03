@@ -2,10 +2,12 @@ import React from 'react'
 import PromptCard from '@components/PromptCard'
 import Prompt from '@interfaces/prompt.interface';
 import { SearchParams } from '../page';
+import { headers } from 'next/headers';
 
 const PromptsList = async ({ params }: {params: SearchParams}) => {
   const response = await fetch(`http://localhost:3000/api/prompt/search?search=${params.search || ''}`, {
-    cache: "no-store"
+    cache: "no-store",
+    headers: headers()
   });
   const prompts : Prompt[] = await response.json()
   
