@@ -1,12 +1,9 @@
+import { Token } from "@interfaces/Token.interface";
 import Prompt from "@models/prompt";
 import { connectToDB } from "@utils/database";
 import axios from "axios";
-import { JWT, getToken } from "next-auth/jwt";
+import { getToken } from "next-auth/jwt";
 import { NextRequest } from "next/server";
-
-interface Token extends JWT{
-    id: string;
-}
 
 const addAnswer = async (content : string, id: number) => {
   try {
@@ -18,7 +15,6 @@ const addAnswer = async (content : string, id: number) => {
         'Content-Type': 'application/json'
       }
     });
-    console.log(res)
     const prompt = await Prompt.findById(id);
     if(!prompt) 
       return;

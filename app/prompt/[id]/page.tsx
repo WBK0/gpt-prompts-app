@@ -3,8 +3,9 @@ import Content from './components/Content';
 import Title from './components/Title';
 import Creator from './components/Creator';
 import Tags from '@components/Tags';
-import AddToFavourite from './components/AddToFavourite';
+import AddToFavorite from './components/AddToFavorite';
 import OtherPrompts from './components/OtherPrompts';
+import { headers } from 'next/headers';
 
 type PromptProps = {
   params: {
@@ -14,7 +15,8 @@ type PromptProps = {
 
 const PromptSite = async ({ params } : PromptProps) => {
   const response = await fetch(`http://localhost:3000/api/prompt/${params.id}`, {
-    cache: "no-store"
+    cache: "no-store",
+    headers: headers()
   })
   const prompt = await response.json()
 
@@ -30,7 +32,7 @@ const PromptSite = async ({ params } : PromptProps) => {
             <GptAnswer answer={prompt.response} />
             <Tags tags={prompt.tags} />
           </div>
-          <AddToFavourite favourites={prompt.favourites} />
+          <AddToFavorite favorites={prompt.favorites} id={prompt._id} isFavorite={prompt.isLiked}/>
         </div>
         <OtherPrompts />
       </>

@@ -20,6 +20,14 @@ const PromptSchema = new Schema({
     type: String,
     maxLength: [4096, 'Response cannot be more than 4096 characters!'],
   },
+  favorites: {
+    type: Number,
+    default: 0,
+  },
+  favoritesUserIds: {
+    type: [Schema.Types.ObjectId],
+    ref: 'User',
+  },
   createdAt: {
     type: Date,
     default: Date.now,

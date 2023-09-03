@@ -7,5 +7,5 @@ export default interface Prompt {
   tags: string[];
   response?: string;
   createdAt: Date;
-  favourites: number;
+  favorites: number;
 }
