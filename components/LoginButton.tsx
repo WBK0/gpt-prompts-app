@@ -1,4 +1,3 @@
-"use client";
 import { signIn } from 'next-auth/react';
 
 // Reusable LoginButton component - displays the login button
