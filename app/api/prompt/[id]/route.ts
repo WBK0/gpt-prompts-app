@@ -11,14 +11,10 @@ export const GET = async (request: NextRequest, { params: { id } }: { params: { 
 
     const session = await getServerSession(authOptions);
 
-    if(!session){
-      return new Response("Unauthorized", { status: 401 });
-    }
-
     let prompt = await Prompt.findById(id);
     let isLiked = false;
 
-    if(prompt.favoritesUserIds.includes(session.user?.id)){
+    if(session && prompt.favoritesUserIds.includes(session.user?.id)){
       isLiked = true;
     }
 

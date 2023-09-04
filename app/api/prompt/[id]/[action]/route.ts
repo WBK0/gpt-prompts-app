@@ -13,6 +13,7 @@ export const PATCH = async (request: NextRequest, { params: { id, action } }: { 
     if(!token){
       return new Response("Unauthorized", { status: 401 });
     }
+    
     let prompt = await Prompt.findById(id);
 
     if(action === 'like'){
