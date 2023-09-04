@@ -6,7 +6,7 @@ import Tags from './Tags';
 import Prompt from '@interfaces/prompt.interface';
 import Link from 'next/link';
 
-const PromptCard = ({ prompt }: {prompt: Prompt}) => {
+const PromptCard = ({ prompt, refreshPrompts }: {prompt: Prompt, refreshPrompts?: () => void}) => {
   const [isLiked, setIsLiked] = useState(prompt.isLiked)
 
   const handleClick = async () => {
@@ -14,7 +14,13 @@ const PromptCard = ({ prompt }: {prompt: Prompt}) => {
       method: 'PATCH'
     })
     const data = await response.json();
-    setIsLiked(data.isLiked)
+    
+    if(refreshPrompts){
+      refreshPrompts();
+    }else{
+      setIsLiked(data.isLiked);
+    }
+
   }
 
   return (

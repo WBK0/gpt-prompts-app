@@ -12,8 +12,6 @@ const LoginActions = () => {
   const [showSubmenu, setShowSubmenu] = useState(false);
   const submenuRef = useRef<HTMLDivElement>(null);
   
-  console.log(session)
-
   const handleChange = () => {
     setShowSubmenu(!showSubmenu);
   };

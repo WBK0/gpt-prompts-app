@@ -1,7 +1,7 @@
 import React from 'react'
 import PromptCard from '@components/PromptCard'
 import Prompt from '@interfaces/prompt.interface';
-import { SearchParams } from '../page';
+import { SearchParams } from '@interfaces/SearchParams.interface';
 import { headers } from 'next/headers';
 
 const PromptsList = async ({ params }: {params: SearchParams}) => {

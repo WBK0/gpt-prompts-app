@@ -1,7 +1,6 @@
 'use client'
 import Link from "next/link";
 
- 
 const Error = ({ error, reset }: { error: Error & { digest?: string }; reset: () => void}) => {
   return (
     <div className="flex w-full justify-center items-center h-screen flex-wrap flex-col">

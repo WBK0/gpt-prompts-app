@@ -20,6 +20,7 @@ const PromptSite = async ({ params } : PromptProps) => {
   })
   const prompt = await response.json()
 
+
   return (
     <div className="mt-6">{
       prompt ?

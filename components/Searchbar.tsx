@@ -3,9 +3,10 @@ import { useParams, useRouter } from "next/navigation";
 import {  useState } from "react";
 
 // Searchbar component - displays the searchbar for searching prompts
-const Searchbar = () => {
+const Searchbar = ({ baseUrl } : {baseUrl : string}) => {
   // Search params
   const params = useParams();
+
   // router
   const router = useRouter();
   // Search state
@@ -14,7 +15,7 @@ const Searchbar = () => {
   // Function to submit form - update search param
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    router.push(`/search/${search}`)
+    router.push(`${baseUrl}/${search}`)
   }
 
   return (
