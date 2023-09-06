@@ -1,11 +1,12 @@
 "use client"
+import Loader from '@components/Loader';
 import PromptCard from '@components/PromptCard'
 import Prompt from '@interfaces/prompt.interface';
 import { SearchParams } from '@interfaces/SearchParams.interface';
 import { useEffect, useState } from 'react';
 
 const PromptsList = ({ params }: {params: SearchParams}) => {
-  const [prompts, setPrompts] = useState([] as Prompt[]);
+  const [prompts, setPrompts] = useState<Prompt[] | null>(null);
 
   const getPrompts = async () => {
     const response = await fetch(`http://localhost:3000/api/prompt/user/favorites?search=${params.search || ''}`, {
@@ -22,14 +23,19 @@ const PromptsList = ({ params }: {params: SearchParams}) => {
   return (
     <div className='flex flex-col items-center px-3 py-12 max-w-6xl mx-auto'>
       {
-        prompts.length > 0 ?
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full'>
-          {prompts.map(prompt => (
-            <PromptCard key={prompt._id} prompt={prompt} refreshPrompts={getPrompts} />
-          ))
-          }
-        </div>
-          : <h1 className='text-2xl font-gilroyBold'>No prompts found</h1>  
+        !prompts 
+        ?
+          <Loader />
+        :
+          prompts.length > 0 ?
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full'>
+            {prompts.map(prompt => (
+              <PromptCard key={prompt._id} prompt={prompt} refreshPrompts={getPrompts} />
+            ))
+            }
+          </div>
+          : 
+            <h1 className='text-2xl font-gilroyBold'>No prompts found</h1>  
         }
       
     </div>
