@@ -1,5 +1,5 @@
+import PromptsList from "@components/PromptsList";
 import Hero from "./components/Hero/Hero";
-import Prompts from "./components/Prompts/Prompts";
 import Searchbar from "./components/Searchbar/Searchbar";
 
 // Home component - displays the home page
@@ -11,7 +11,12 @@ const Home = () => {
         <Searchbar />
       </div> 
       <div>
-        <Prompts />
+        <h1 className="text-5xl font-gilroyHeavy text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-rose-500 drop-shadow p-4 text-center">
+          POPULAR PROMPTS
+        </h1>
+        <PromptsList
+          url={`/api/prompt?max=3`}
+        />
       </div>
     </>
   )

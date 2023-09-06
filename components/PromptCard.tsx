@@ -15,7 +15,6 @@ const PromptCard = ({ prompt, refreshPrompts }: {prompt: Prompt, refreshPrompts?
   }, [prompt])
 
   const handleClick = async () => {
-    console.log(prompt._id, isLiked)
     try {
       const response = await fetch(`http://localhost:3000/api/prompt/${prompt._id}/${isLiked ? 'dislike' : 'like'}`, {
       method: 'PATCH'
@@ -29,8 +28,6 @@ const PromptCard = ({ prompt, refreshPrompts }: {prompt: Prompt, refreshPrompts?
       }
       throw new Error(data);
     }
-
-    console.log(data);
     
     if(refreshPrompts){
       console.log(refreshPrompts)

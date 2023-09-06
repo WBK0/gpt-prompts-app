@@ -1,5 +1,5 @@
 import Searchbar from "@components/Searchbar";
-import PromptsList from "./components/PromptsList";
+import PromptsList from "../../../../components/PromptsList";
 import { SearchParams } from "@interfaces/SearchParams.interface";
 
 const UserPrompts = ({ params } : {params: SearchParams}) => {
@@ -9,7 +9,9 @@ const UserPrompts = ({ params } : {params: SearchParams}) => {
         User prompts
       </h1>
       <Searchbar baseUrl='/user/prompts'/>
-      <PromptsList params={params} />
+      <PromptsList 
+        url={`/api/prompt/user?search=${params.search || ''}`} 
+      />
     </div>
   )
 }

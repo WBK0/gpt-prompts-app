@@ -1,6 +1,4 @@
 TODO:
-  * PromptsList jako reużywalny component
   * Jeżeli creator prompta wchodzi w swojego prompta to ma przyciski do usuwania i edytowania
   * Widok edytowania prompta
   * Widok usuwania prompta
-  

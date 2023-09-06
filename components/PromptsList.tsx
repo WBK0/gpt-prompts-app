@@ -2,19 +2,17 @@
 import Loader from '@components/Loader';
 import PromptCard from '@components/PromptCard'
 import Prompt from '@interfaces/prompt.interface';
-import { SearchParams } from '@interfaces/SearchParams.interface';
 import { useEffect, useState } from 'react';
 
-const PromptsList = ({ params }: {params: SearchParams}) => {
+const PromptsList = ({ url }: {url: string}) => {
   const [prompts, setPrompts] = useState<Prompt[] | null>(null);
 
   const getPrompts = async () => {
-    const response = await fetch(`http://localhost:3000/api/prompt/user?search=${params.search || ''}`, {
+    const response = await fetch(`http://localhost:3000${url}`, {
       cache: "no-store"
     });
     const prompts : Prompt[] = await response.json();
     setPrompts(prompts);
-    console.log(prompts)
   }
   
   useEffect(() => {
