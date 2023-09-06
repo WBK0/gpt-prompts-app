@@ -1,26 +1,46 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tags from './Tags';
 import Prompt from '@interfaces/prompt.interface';
 import Link from 'next/link';
+import { toast } from 'react-toastify';
 
 const PromptCard = ({ prompt, refreshPrompts }: {prompt: Prompt, refreshPrompts?: () => void}) => {
   const [isLiked, setIsLiked] = useState(prompt.isLiked)
 
+  useEffect(() => {
+    setIsLiked(prompt.isLiked)
+  }, [prompt])
+
   const handleClick = async () => {
-    const response = await fetch(`http://localhost:3000/api/prompt/${prompt._id}/${isLiked ? 'dislike' : 'like'}`, {
+    console.log(prompt._id, isLiked)
+    try {
+      const response = await fetch(`http://localhost:3000/api/prompt/${prompt._id}/${isLiked ? 'dislike' : 'like'}`, {
       method: 'PATCH'
     })
+
     const data = await response.json();
+
+    if(!response.ok){
+      if(response.status === 400){
+        setIsLiked(!isLiked);
+      }
+      throw new Error(data);
+    }
+
+    console.log(data);
     
     if(refreshPrompts){
+      console.log(refreshPrompts)
       refreshPrompts();
     }else{
       setIsLiked(data.isLiked);
     }
-
+    } catch (error) {
+      toast.error(`${error}`)
+    }
   }
 
   return (

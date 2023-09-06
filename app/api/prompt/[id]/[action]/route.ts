@@ -19,7 +19,7 @@ export const PATCH = async (request: NextRequest, { params: { id, action } }: { 
 
     if(action === 'like'){
       if(prompt.favoritesUserIds.includes(token.id)){
-        return new Response("You already liked this prompt", { status: 400 });
+        return new Response(JSON.stringify("You already liked this prompt"), { status: 400 });
       }
       prompt.favoritesUserIds.push(token.id);
       prompt.favorites += 1;
@@ -37,6 +37,8 @@ export const PATCH = async (request: NextRequest, { params: { id, action } }: { 
           ...prompt.toObject(),
           isLiked: false
         }
+      }else{
+        return new Response(JSON.stringify("You cant dislike unliked prompt"), { status: 400 })
       }
     }
 
