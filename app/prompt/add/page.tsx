@@ -16,33 +16,44 @@ const PromptForm = () => {
   const [tags, setTags] = useState<string[]>([])
 
   const handleSubmit = async (e : React.FormEvent) => {
+    console.log('submi')
     e.preventDefault();
-
-    const response = await fetch('http://localhost:3000/api/prompt/new', {
-      method: "POST",
-      body: JSON.stringify({
-        title: title,
-        content: prompt,
-        tags: tags,
-      })
-    })
-
-    const data = await response.json()
-
-    console.log(data)
-
-
-    toast.success('🦄 Wow so easy!', {
-      position: "bottom-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "colored",
+    try {
+      const response = await fetch('http://localhost:3000/api/prompt/new', {
+        method: "POST",
+        body: JSON.stringify({
+          title: title,
+          content: prompt,
+          tags: tags,
+        })
       });
-      
+
+      const data = await response.json();
+
+      // toast.success('🦄 Wow so easy!', {
+      //   position: "bottom-right",
+      //   toastId: 'id',
+      //   autoClose: 5000,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      //   progress: undefined,
+      //   theme: "colored",
+      // });
+      console.log(data)
+    } catch (error) {
+      toast.error(`test`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }  
   }
 
   return (

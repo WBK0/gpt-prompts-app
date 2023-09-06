@@ -7,10 +7,10 @@ interface ProviderProps {
   session?: Session;
 }
 
-const Provider = ({ children, session } : ProviderProps) => (
+const UserProvider = ({ children, session } : ProviderProps) => (
   <SessionProvider session={session}>
     {children}
   </SessionProvider>
 )
 
-export default Provider;
+export default UserProvider;

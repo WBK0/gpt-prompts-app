@@ -44,7 +44,7 @@ export const POST = async (request : NextRequest) => {
       return new Response("Missing data", { status: 400 });
     }
     if(tags.length < 1){
-      return new Response("You need to provide at least one tag", { status: 400 });
+      return new Response(JSON.stringify("You need to provide at least one tag"), { status: 400 });
     }
     if(tags.length > 8){
       return new Response("You can provide max 8 tags", { status: 400 });

@@ -1,5 +1,6 @@
 import Navbar from "@components/Navbar/Navbar";
-import Provider from "@components/Provider";
+import ToastProvider from "@components/Providers/ToastProvider";
+import UserProvider from "@components/Providers/UserProvider";
 import "@styles/globals.css";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import type { Metadata } from 'next'
@@ -17,12 +18,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-gray-100">
-        <Provider>
-          <Navbar />
-          <div className="container mx-auto pt-12">
-            {children}
-          </div>
-        </Provider>
+        <UserProvider>
+          <ToastProvider>
+            <Navbar />
+            <div className="container mx-auto pt-12">
+              {children}
+            </div>
+          </ToastProvider>
+        </UserProvider>
       </body>
     </html>
   )
