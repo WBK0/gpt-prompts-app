@@ -15,8 +15,7 @@ const PromptForm = () => {
   const [prompt, setPrompt] = useState<string>('')
   const [tags, setTags] = useState<string[]>([])
 
-  const handleSubmit = async (e : React.FormEvent) => {
-    console.log('submi')
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const response = await fetch('http://localhost:3000/api/prompt/new', {
@@ -29,31 +28,21 @@ const PromptForm = () => {
       });
 
       const data = await response.json();
+  
+      if (!response.ok) {
+        throw new Error(data);
+      }
 
-      // toast.success('🦄 Wow so easy!', {
-      //   position: "bottom-right",
-      //   toastId: 'id',
-      //   autoClose: 5000,
-      //   hideProgressBar: false,
-      //   closeOnClick: true,
-      //   pauseOnHover: true,
-      //   draggable: true,
-      //   progress: undefined,
-      //   theme: "colored",
-      // });
-      console.log(data)
+      toast.success(`Prompt added successfully!`);
+
+      setTitle('');
+      setPrompt('');
+      setTags([]);
+
     } catch (error) {
-      toast.error(`test`, {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
-    }  
+      console.error(error);
+      toast.error(`${error}`);
+    }
   }
 
   return (

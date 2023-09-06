@@ -12,7 +12,15 @@ export default function ToastProvider({ children }: ToastProviderProps) {
   return (
     <>
       {children}
-      <ToastContainer />
+      <ToastContainer 
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar= {false}
+        closeOnClick= {true}
+        pauseOnHover= {true}
+        draggable= {true}
+        theme= "colored"
+      />
     </>
   );
 }
