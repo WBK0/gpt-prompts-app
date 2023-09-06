@@ -10,9 +10,9 @@ const Content = () => {
   const [showResponsive, setShowResponsive] = useState(false);
   return (
     <>
-      <div className='flex-1 sm:flex hidden justify-center items-center gap-4'>
+      <div className='flex-2 sm:flex hidden justify-center items-center gap-4'>
         <Link href="/prompt/add" className='font-gilroyBold text-sm hover:text-gray-300'>ADD PROMPT</Link>
-        <Link href="/test" className='font-gilroyBold text-sm hover:text-gray-300'>SAVED PROMPTS</Link>
+        <Link href="/user/saved" className='font-gilroyBold text-sm hover:text-gray-300'>SAVED PROMPTS</Link>
       </div>
       <div 
         className='flex-1 flex sm:hidden justify-end items-center'
@@ -25,7 +25,7 @@ const Content = () => {
         showResponsive &&
         <div className='absolute top-12 bg-blue-700 w-full left-0 pt-2 pb-5 flex flex-wrap sm:hidden z-10'>
           <Link href="/prompt/add" className='font-gilroyBold text-xl py-3 hover:text-gray-300 w-full text-center'>ADD PROMPT</Link>
-          <Link href="/test" className='font-gilroyBold text-xl py-3 hover:text-gray-300 w-full text-center'>SAVED PROMPTS</Link>
+          <Link href="/user/saved" className='font-gilroyBold text-xl py-3 hover:text-gray-300 w-full text-center'>SAVED PROMPTS</Link>
           {
             session.status === 'unauthenticated' ?
             <div className='mx-auto py-3'>

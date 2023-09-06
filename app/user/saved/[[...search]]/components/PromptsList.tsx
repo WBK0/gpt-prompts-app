@@ -20,10 +20,10 @@ const PromptsList = ({ params }: {params: SearchParams}) => {
   }, [])
 
   return (
-    <div className='flex flex-col items-center px-3 py-12'>
+    <div className='flex flex-col items-center px-3 py-12 max-w-6xl mx-auto'>
       {
         prompts.length > 0 ?
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full'>
           {prompts.map(prompt => (
             <PromptCard key={prompt._id} prompt={prompt} refreshPrompts={getPrompts} />
           ))

@@ -6,6 +6,7 @@ import PromptInput from './components/PromptInput';
 import Tags from './components/Tags';
 import SubmitButton from './components/SubmitButton';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 // PromptForm component - renders the form for adding a new prompt
 const PromptForm = () => {
@@ -17,11 +18,31 @@ const PromptForm = () => {
   const handleSubmit = async (e : React.FormEvent) => {
     e.preventDefault();
 
-    const response = await axios.post('/api/prompt/new', {
-      title: title,
-      content: prompt,
-      tags: tags,
+    const response = await fetch('http://localhost:3000/api/prompt/new', {
+      method: "POST",
+      body: JSON.stringify({
+        title: title,
+        content: prompt,
+        tags: tags,
+      })
     })
+
+    const data = await response.json()
+
+    console.log(data)
+
+
+    toast.success('🦄 Wow so easy!', {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      });
+      
   }
 
   return (

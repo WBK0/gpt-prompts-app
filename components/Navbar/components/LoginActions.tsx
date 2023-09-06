@@ -34,7 +34,7 @@ const LoginActions = () => {
   }, []);
 
   return (
-    <div className="flex-none sm:flex hidden items-center">
+    <div className="flex-1 sm:flex hidden items-center justify-end">
       <div className="relative" ref={submenuRef}>
         {session.status === 'unauthenticated' ? (
           <LoginButton />
