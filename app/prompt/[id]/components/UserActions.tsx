@@ -1,9 +1,11 @@
-const UserActions = () => {
+import Link from "next/link";
+
+const UserActions = ({ params } : {params: {id: string}}) => {
   return (
     <div>
-      <button className='bg-blue-700 hover:bg-blue-900 text-white font-bold py-1 px-5 rounded-xl'>
+      <Link href={`/prompt/edit/${params.id}`} className='bg-blue-700 hover:bg-blue-900 text-white font-bold py-1 px-5 rounded-xl'>
         Edit
-      </button>
+      </Link>
       <button className="bg-red-700 hover:bg-red-900 text-white font-bold py-1 px-5 rounded-xl ml-4">
         Delete
       </button>

@@ -17,7 +17,7 @@ type PromptProps = {
 const PromptSite = async ({ params } : PromptProps) => {
   const response = await fetch(`http://localhost:3000/api/prompt/${params.id}`, {
     cache: "no-store",
-    headers: headers()
+    headers: headers(),
   })
   const prompt = await response.json()
 
@@ -36,7 +36,7 @@ const PromptSite = async ({ params } : PromptProps) => {
           </div>
           <div className="px-6 py-4 bg-gray-100 flex items-center justify-between">
             <AddToFavorite favorites={prompt.favorites} id={prompt._id} isFavorite={prompt.isLiked}/>
-            <UserActions />
+            <UserActions params={params}/>
           </div>
         </div>
         <OtherPrompts />
