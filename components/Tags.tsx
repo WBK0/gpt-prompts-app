@@ -1,5 +1,3 @@
-import React from 'react'
-
 const Tags = ({tags}: {tags: string[]}) => {
   return (
     <div className='flex flex-wrap mt-4'>

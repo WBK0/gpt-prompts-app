@@ -33,7 +33,7 @@ const Content = () => {
             </div>
             : 
             <>
-              <Link href="/prompt/add" className='font-gilroyBold text-xl py-3 hover:text-gray-300 w-full text-center'>MY PROMPTS</Link>
+              <Link href="/user/prompts" className='font-gilroyBold text-xl py-3 hover:text-gray-300 w-full text-center'>MY PROMPTS</Link>
               <p className='font-gilroyBold text-xl py-3 hover:text-gray-300 w-full text-center' onClick={() => signOut()}>LOGOUT</p>
             </>
           }

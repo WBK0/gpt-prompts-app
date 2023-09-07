@@ -49,7 +49,7 @@ const LoginActions = () => {
             )}
             {showSubmenu && (
               <div className="absolute right-0 mt-1 bg-white border border-gray-300 shadow-md min-w-[200px] flex justify-center flex-wrap py-2 font-gilroyBold">
-                <Link href="/prompt/add" className="py-2 px-4 text-black w-full text-center hover:bg-gray-100" onClick={handleCloseSubmenu}>
+                <Link href="/user/prompts" className="py-2 px-4 text-black w-full text-center hover:bg-gray-100" onClick={handleCloseSubmenu}>
                   MY PROMPTS
                 </Link>
                 <p className="py-2 px-4 text-black w-full text-center hover:bg-gray-100 cursor-pointer" onClick={() => signOut()}>
