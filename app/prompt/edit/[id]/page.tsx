@@ -7,6 +7,7 @@ import SubmitButton from '@components/PromptForm/SubmitButton';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import Loader from '@components/Loader';
+import { useSession } from 'next-auth/react';
 
 // PromptForm component - renders the form for adding a new prompt
 const PromptEditForm = ({ params }: { params: {id : string}}) => {
@@ -18,9 +19,11 @@ const PromptEditForm = ({ params }: { params: {id : string}}) => {
 
   const router = useRouter();
 
-  const getPromptById = async () => {
+  const session = useSession();
+
+  const getPrompt = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/api/prompt/edit/${params.id}`, {
+      const response = await fetch(`http://localhost:3000/api/prompt/${params.id}`, {
         cache: "no-store"
       })
 
@@ -31,6 +34,12 @@ const PromptEditForm = ({ params }: { params: {id : string}}) => {
 
       const prompt = await response.json();
       
+      if(prompt.creatorId !== session.data?.user?.id) {
+        toast.error(`You don't have permission to edit this prompt!`);
+        router.push('/user/prompts')
+        return;
+      }
+
       setTitle(prompt.title);
       setPrompt(prompt.content);
       setTags(prompt.tags);
@@ -41,13 +50,13 @@ const PromptEditForm = ({ params }: { params: {id : string}}) => {
   }
 
   useEffect(() => {
-    getPromptById();
+    getPrompt();
   }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:3000/api/prompt/edit/${params.id}`, {
+      const response = await fetch(`http://localhost:3000/api/prompt/${params.id}`, {
         method: "PATCH",
         body: JSON.stringify({
           title: title,

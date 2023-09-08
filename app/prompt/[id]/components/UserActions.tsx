@@ -1,16 +1,29 @@
 "use client"
 import Modal from "@components/Modal/Modal";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const UserActions = ({ params } : {params: {id: string}}) => {
   const [showModal, setShowModal] = useState(false);
 
+  const router = useRouter();
+
   const handleSubmit = async () => {
-    const response = await fetch(`http://localhost:3000/api/prompt/delete/${params.id}`, {
-      method: 'DELETE'
-    })
-    console.log(response)
+    try {
+      const response = await fetch(`http://localhost:3000/api/prompt/${params.id}`, {
+        method: 'DELETE'
+      })
+      if(!response.ok) {
+        throw new Error('Something went wrong!');
+      }
+      toast.success('Prompt deleted successfully!');
+      router.push('/user/prompts');
+    } catch (error) {
+      console.log(error)
+      toast.error(`${error}`);
+    }   
   }
 
   const handleClose = () => {
