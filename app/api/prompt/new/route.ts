@@ -1,24 +1,25 @@
 import { Token } from "@interfaces/Token.interface";
 import Prompt from "@models/prompt";
 import { connectToDB } from "@utils/database";
-import axios from "axios";
 import { getToken } from "next-auth/jwt";
 import { NextRequest } from "next/server";
 
 const addAnswer = async (content : string, id: number) => {
   try {
-    const res = await axios.post(`http://gpt.codebybartlomiej.pl/`, {
-      prompt: `I will provide you prompt, you will answer for it using html tags if you found a any words in [] or <> provide there matching words. Use <h2>, <h3>, <h4>, <p>, <strong>, <i>, <ul>, <li> html tags. My prompt is: ${content}`
-    },
-    {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
+    const res = await fetch(`http://gpt.codebybartlomiej.pl/`, {
+      method: 'POST',
+      body: JSON.stringify({
+        prompt: `I will provide you prompt, you will answer for it using html tags if you found a any words in [] or <> provide there matching words. Use <h2>, <h3>, <h4>, <p>, <strong>, <i>, <ul>, <li> html tags. My prompt is: ${content}`
+      })
+    })
+    const data = await res.json();
+
+    console.log(data)
+
     const prompt = await Prompt.findById(id);
     if(!prompt) 
       return;
-    prompt.response = res.data.response
+    prompt.response = data
     await prompt.save()
   } catch (error) {
     console.log(error)

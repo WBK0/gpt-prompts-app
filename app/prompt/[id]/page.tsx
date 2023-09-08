@@ -7,6 +7,8 @@ import AddToFavorite from './components/AddToFavorite';
 import OtherPrompts from './components/OtherPrompts';
 import { headers } from 'next/headers';
 import UserActions from './components/UserActions';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@app/api/auth/[...nextauth]/route';
 
 type PromptProps = {
   params: {
@@ -20,6 +22,8 @@ const PromptSite = async ({ params } : PromptProps) => {
     headers: headers(),
   })
   const prompt = await response.json()
+
+  const session = await getServerSession(authOptions);
 
 
   return (
@@ -36,7 +40,13 @@ const PromptSite = async ({ params } : PromptProps) => {
           </div>
           <div className="px-6 py-4 bg-gray-100 flex items-center justify-between">
             <AddToFavorite favorites={prompt.favorites} id={prompt._id} isFavorite={prompt.isLiked}/>
-            <UserActions params={params}/>
+            {
+              session 
+              ?
+                <UserActions params={params} />
+              : 
+                null
+            }
           </div>
         </div>
         <OtherPrompts />
