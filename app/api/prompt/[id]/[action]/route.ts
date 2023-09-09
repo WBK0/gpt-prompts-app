@@ -4,19 +4,23 @@ import { connectToDB } from "@utils/database";
 import { getToken } from "next-auth/jwt";
 import { NextRequest } from "next/server";
 
-// Get prompt by id from database
+// Api route for liking and disliking prompt
 export const PATCH = async (request: NextRequest, { params: { id, action } }: { params: { id: string, action: string } }) => {
   try {
     await connectToDB(); // Connect to database
+
+    // Get token from request
     const token = await getToken({ req: request }) as Token;
 
+    // Check if token exists 
     if(!token){
       return new Response("Unauthorized", { status: 401 });
     }
 
-    
+    // Get prompt by id
     let prompt = await Prompt.findById(id);
 
+    // Update prompt favorites and favoritesUserIds based on action (like or dislike) 
     if(action === 'like'){
       if(prompt.favoritesUserIds.includes(token.id)){
         return new Response(JSON.stringify("You already liked this prompt"), { status: 400 });

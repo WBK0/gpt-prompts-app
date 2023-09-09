@@ -18,14 +18,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-gray-100">
-        <UserProvider>
-          <ToastProvider>
+        <ToastProvider>
+          <UserProvider>
             <Navbar />
             <div className="container mx-auto pt-12">
               {children}
             </div>
-          </ToastProvider>
-        </UserProvider>
+          </UserProvider>
+        </ToastProvider>
       </body>
     </html>
   )

@@ -8,24 +8,31 @@ import { getServerSession } from "next-auth";
 export const GET = async (request : NextRequest) => {
   try {
     await connectToDB(); // Connect to database
+
+    // Get session from request
     let session = await getServerSession(authOptions);
 
     const query = request.nextUrl.searchParams.get("search"); // Get search query from url
 
+    // Get prompts from database based on search query and sort them by createdAt
     let prompts = await Prompt.find({})
     .find(
       {
         $or: [
-          { title: { $regex: query, $options: 'i' } }, // Search title 
-          { tags: { $in: query } } // Search tags
+          { title: { $regex: query, $options: 'i' } }, 
+          { tags: { $in: query } }
         ],})
     .sort({ createdAt: -1 }).limit(12);
 
+    // Set isLiked to false by default
     prompts = prompts.map(prompt => {
       let isLiked = false;
+      // Check if session exists and if user id is in favoritesUserIds
       if(session){
+        // Set isLiked to true
         isLiked = prompt.favoritesUserIds.includes(session.user?.id);
       }
+      // Add isLiked to prompt object
       return { ...prompt.toObject(), isLiked };
     }); 
     

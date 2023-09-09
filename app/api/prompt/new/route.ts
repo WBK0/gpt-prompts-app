@@ -2,6 +2,7 @@ import { Token } from "@interfaces/Token.interface";
 import Prompt from "@models/prompt";
 import { connectToDB } from "@utils/database";
 import { generateResponse } from "@utils/generateResponse";
+import { validatePrompt } from "@utils/validatePromptData";
 import { getToken } from "next-auth/jwt";
 import { NextRequest } from "next/server";
 
@@ -17,20 +18,13 @@ export const POST = async (request : NextRequest) => {
     if(!token){
       return new Response(JSON.stringify("Unauthorized"), { status: 401 });
     }
-    if(!title || !content || !tags){
-      return new Response(JSON.stringify("Missing data"), { status: 400 });
-    }
-    if(tags.length < 1){
-      return new Response(JSON.stringify("You need to provide at least one tag"), { status: 400 });
-    }
-    if(tags.length > 8){
-      return new Response(JSON.stringify("You can provide max 8 tags"), { status: 400 });
-    }
-    if(content.length > 2048){
-      return new Response(JSON.stringify("Prompt is too long"), { status: 400 });
-    }
-    if(title.length > 64){
-      return new Response(JSON.stringify("Title is too long"), { status: 400 });
+  
+    // Validate prompt data
+    const validationError = validatePrompt({title, content, tags});
+
+    // Return error if validation failed
+    if(validationError){
+      return new Response(validationError, { status: 400 });
     }
 
     // Create new prompt and save it to database

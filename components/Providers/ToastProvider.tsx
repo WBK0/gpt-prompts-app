@@ -11,7 +11,6 @@ interface ToastProviderProps {
 export default function ToastProvider({ children }: ToastProviderProps) {
   return (
     <>
-      {children}
       <ToastContainer 
         position="bottom-right"
         autoClose={5000}
@@ -21,6 +20,8 @@ export default function ToastProvider({ children }: ToastProviderProps) {
         draggable= {true}
         theme= "colored"
       />
+      {children}
+      
     </>
   );
 }

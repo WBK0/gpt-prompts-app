@@ -71,9 +71,9 @@ const PromptEditForm = ({ params }: { params: {id : string}}) => {
         throw new Error(data);
       }
 
-      window.location.href = `/prompt/${params.id}`;
+      router.replace(`/prompt/${params.id}?refresh=${Date.now()}`) // Refresh the page to show the updated prompt. We need to add refresh param to refresh server component
 
-      toast.success(`Prompt edited successfully!`);
+      toast.success(`Prompt edited successfully!`); // Show a success message 
 
     } catch (error) {
       console.error(error);

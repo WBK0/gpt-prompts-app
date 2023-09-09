@@ -3,6 +3,7 @@ import GoogleProvider from 'next-auth/providers/google';
 import User from '@models/user';
 import { connectToDB } from '@utils/database';
 
+// Define options for NextAuth
 export const authOptions : AuthOptions = {
   providers: [
     GoogleProvider({
@@ -68,6 +69,7 @@ export const authOptions : AuthOptions = {
     }
   }
 }
+
 
 export const handler = NextAuth(authOptions);
 
