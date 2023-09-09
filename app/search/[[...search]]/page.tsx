@@ -1,5 +1,5 @@
 import Searchbar from '../../../components/Searchbar'
-import PromptsList from '@components/PromptsList'
+import PromptsList from './PromptsSearchList'
 import { SearchParams } from '@interfaces/SearchParams.interface';
 
 // Search component - displays the search page
@@ -8,7 +8,7 @@ const Search = async ({ params }: {params: SearchParams}) => {
     <div>
       <Searchbar baseUrl='/search'/> 
       <PromptsList 
-        url={`/api/prompt/search?search=${params.search || ''}`}
+        params={params}
       />
     </div>
   )

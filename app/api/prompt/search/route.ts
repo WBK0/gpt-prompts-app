@@ -13,6 +13,8 @@ export const GET = async (request : NextRequest) => {
     let session = await getServerSession(authOptions);
 
     const query = request.nextUrl.searchParams.get("search"); // Get search query from url
+    const skip = request.nextUrl.searchParams.get("skip"); // Get skip number from url
+    const max = request.nextUrl.searchParams.get("max"); // Get skip number from url
 
     // Get prompts from database based on search query and sort them by createdAt
     let prompts = await Prompt.find({})
@@ -22,7 +24,9 @@ export const GET = async (request : NextRequest) => {
           { title: { $regex: query, $options: 'i' } }, 
           { tags: { $in: query } }
         ],})
-    .sort({ createdAt: -1 }).limit(12);
+    .sort({ createdAt: -1 })
+    .skip(Number(skip))
+    .limit(Number(max) || 12);
 
     // Set isLiked to false by default
     prompts = prompts.map(prompt => {

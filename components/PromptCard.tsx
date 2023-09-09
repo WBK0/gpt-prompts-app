@@ -30,7 +30,6 @@ const PromptCard = ({ prompt, refreshPrompts }: {prompt: Prompt, refreshPrompts?
     }
     
     if(refreshPrompts){
-      console.log(refreshPrompts)
       refreshPrompts();
     }else{
       setIsLiked(data.isLiked);
