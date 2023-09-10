@@ -7,6 +7,9 @@ const OtherPrompts = async () => {
     cache: "no-store",
     headers: headers()
   });
+
+  // console.log(response)
+
   const prompts : Prompt[] = await response.json()
 
   return (

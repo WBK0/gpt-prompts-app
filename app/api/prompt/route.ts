@@ -10,15 +10,31 @@ export const GET = async (request : NextRequest) => {
     let session = await getServerSession(authOptions);
     await connectToDB(); // Connect to database
     const max = Number(request.nextUrl.searchParams.get("max")); // Get max number of prompts to return
-    let prompts = await Prompt.find({}).sort({ createdAt: -1 }).limit(max || 12); // Get requested number of prompts or 12 by default
+    const sort = request.nextUrl.searchParams.get("sort"); // Get max number of prompts to return
+
+    let prompts;
+
+
+    if(sort === 'favorites') {
+      prompts = await Prompt.aggregate([
+        { $sort: { favorites: -1 } },
+        { $limit: max || 12 },
+      ]);
+    }else{
+      prompts = await Prompt.aggregate([
+        { $sample: { size: max || 12 } },
+        { $sort: { createdAt: -1 } },
+      ]);
+    }
 
     prompts = prompts.map(prompt => {
       let isLiked = false;
-      if(session){
-        isLiked = prompt.favoritesUserIds.includes(session.user?.id);
+
+      if (session) {
+        isLiked = prompt.favoritesUserIds.toString().includes(session.user?.id);
       }
-      return { ...prompt.toObject(), isLiked };
-    }); 
+      return { ...prompt, isLiked };
+    });
 
     // Return response
     return new Response(JSON.stringify(prompts), { status: 201 })

@@ -45,10 +45,8 @@ const PromptsList = ({ params } : { params : SearchParams}) => {
     if(skip){
       setPrompts((prevPrompts) => {
         if (prevPrompts === null) {
-          // Jeśli stan jest początkowo null, zwróć nowe prompty jako nową tablicę
           return newPrompts;
         } else {
-          // W przeciwnym razie dołącz nowe prompty do istniejącej tablicy
           return [...prevPrompts, ...newPrompts];
         }
       });  
@@ -61,7 +59,6 @@ const PromptsList = ({ params } : { params : SearchParams}) => {
       setPrompts(newPrompts);
     }
   }
-  
   
   useEffect(() => {
     getPrompts();
@@ -83,7 +80,6 @@ const PromptsList = ({ params } : { params : SearchParams}) => {
           </div>
           : 
             <h1 className='text-2xl font-gilroyBold'>No prompts found</h1>  
-          
         }
       <div className="flex items-center justify-center h-[60px] mt-6">
         {
