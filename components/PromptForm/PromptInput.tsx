@@ -1,10 +1,11 @@
 interface PromptInputProps {
   prompt: string;
   setPrompt: React.Dispatch<React.SetStateAction<string>>;
+  promptError: string | null;
 }
 
-const PromptInput = ({ prompt, setPrompt } : PromptInputProps) => {
-  
+const PromptInput = ({ prompt, setPrompt, promptError } : PromptInputProps) => {
+
   // Handle prompt change event 
   const handlePromptChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setPrompt(event.target.value)
@@ -13,7 +14,7 @@ const PromptInput = ({ prompt, setPrompt } : PromptInputProps) => {
   return (
     <>          
       <label htmlFor="prompt" className="text-lg text-gray-700 font-gilroyBold">Prompt:</label>
-      <textarea rows={8} id="prompt" value={prompt} onChange={handlePromptChange} className="px-3 py-2 border border-gray-400 rounded-md font-gilroyMedium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+      <textarea rows={8} id="prompt" value={prompt} onChange={handlePromptChange} className={`px-3 py-2 border border-gray-400 rounded-md font-gilroyMedium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${promptError ? 'border-red-500 border-2' : 'border-gray-400'}`} />
     </>
   )
 }
