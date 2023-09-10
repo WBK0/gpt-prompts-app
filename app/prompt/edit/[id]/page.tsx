@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import Loader from '@components/Loader';
 import { useSession } from 'next-auth/react';
+import { useFormValidate } from '@hooks/useFormValidate';
 
 // PromptForm component - renders the form for adding a new prompt
 const PromptEditForm = ({ params }: { params: {id : string}}) => {
@@ -16,8 +17,13 @@ const PromptEditForm = ({ params }: { params: {id : string}}) => {
   const [prompt, setPrompt] = useState<string>('');
   const [tags, setTags] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [titleError, setTitleError] = useState<string | null>(null);
+  const [promptError, setPromptError] = useState<string | null>(null);
+  const [tagsError, setTagsError] = useState<string | null>(null);
 
   const router = useRouter();
+
+  const { validateForm } = useFormValidate();
 
   const session = useSession();
 
@@ -68,7 +74,11 @@ const PromptEditForm = ({ params }: { params: {id : string}}) => {
       const data = await response.json();
   
       if (!response.ok) {
-        throw new Error(data);
+        const errors = validateForm({ title, prompt, tags });
+        setTitleError(errors.title);
+        setPromptError(errors.prompt);
+        setTagsError(errors.tags);
+        throw new Error(errors.title || errors.prompt || errors.tags || data);
       }
 
       router.replace(`/prompt/${params.id}?refresh=${Date.now()}`) // Refresh the page to show the updated prompt. We need to add refresh param to refresh server component
@@ -93,9 +103,9 @@ const PromptEditForm = ({ params }: { params: {id : string}}) => {
           <div className='px-4 py-4 mx-3 bg-white rounded-md lg:px-6 lg:py-6 drop-shadow'>
             <div className='flex flex-col space-y-3'>
               <h1 className="text-3xl font-gilroyBold text-center mb-4">Edit prompt</h1>
-              <TitleInput title={title} setTitle={setTitle} />
-              <PromptInput prompt={prompt} setPrompt={setPrompt} />
-              <Tags tags={tags} setTags={setTags} />
+              <TitleInput title={title} setTitle={setTitle} titleError={titleError}/>
+              <PromptInput prompt={prompt} setPrompt={setPrompt} promptError={promptError} />
+              <Tags tags={tags} setTags={setTags} tagsError={tagsError}/>
             </div>
             <SubmitButton handleSubmit={handleSubmit}>
               Edit prompt
