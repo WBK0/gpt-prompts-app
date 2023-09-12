@@ -3,6 +3,8 @@ import GoogleProvider from 'next-auth/providers/google';
 import EmailProvider from "next-auth/providers/email";
 import User from '@models/user';
 import { connectToDB } from '@utils/database';
+import { MongoDBAdapter } from '@auth/mongodb-adapter';
+import clientPromise from '../mongodb-adapter';
 
 // Define options for NextAuth
 export const authOptions : AuthOptions = {
@@ -52,16 +54,16 @@ export const authOptions : AuthOptions = {
       return session;
     },
     async signIn({user} : {user: UserInterface}) {
+      console.log(user)
       try {
         await connectToDB();
-    
+
         if (!user || !user.name || !user.email || !user.image) {
           throw new Error("Incomplete profile");
         }
     
         // Check if user exists in MongoDB
         const userExists = await User.findOne({ email: user.email });
-    
 
         // If user does not exist, create new one
         if (!userExists) {
@@ -83,6 +85,11 @@ export const authOptions : AuthOptions = {
 }
 
 
-export const handler = NextAuth(authOptions);
+export const handler = NextAuth({
+  adapter: MongoDBAdapter(clientPromise),
+  ...authOptions
+}
+  
+);
 
 export { handler as GET, handler as POST };
