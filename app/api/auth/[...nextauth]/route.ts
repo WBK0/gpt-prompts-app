@@ -1,11 +1,23 @@
 import NextAuth, { AuthOptions, Session, User as UserInterface } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
+import EmailProvider from "next-auth/providers/email";
 import User from '@models/user';
 import { connectToDB } from '@utils/database';
 
 // Define options for NextAuth
 export const authOptions : AuthOptions = {
   providers: [
+    // EmailProvider({
+    //   server: {
+    //     host: process.env.EMAIL_SERVER_HOST,
+    //     port: process.env.EMAIL_SERVER_PORT,
+    //     auth: {
+    //       user: process.env.EMAIL_SERVER_USER,
+    //       pass: process.env.EMAIL_SERVER_PASSWORD
+    //     }
+    //   },
+    //   from: process.env.EMAIL_FROM
+    // }),
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
