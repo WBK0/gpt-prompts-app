@@ -25,6 +25,7 @@ const PromptSite = async ({ params } : PromptProps) => {
 
   const session = await getServerSession(authOptions);
 
+  console.log(session)
 
   return (
     <div className="mt-6">{

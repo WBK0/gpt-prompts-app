@@ -17,6 +17,8 @@ export const PATCH = async (request: NextRequest, { params: { id, action } }: { 
       return new Response("Unauthorized", { status: 401 });
     }
 
+    console.log(token)
+
     // Get prompt by id
     let prompt = await Prompt.findById(id);
 

@@ -44,7 +44,11 @@ const LoginActions = () => {
               <button className="flex" onClick={handleChange}>
                 {session.data.user.image ? (
                   <Image src={session.data.user.image} width={40} height={40} alt="User image" className="rounded-full" />
-                ) : null}
+                ) : 
+                  <button className='w-[40px] h-[40px]'>
+                    Avatar
+                  </button>
+                }
               </button>
             )}
             {showSubmenu && (

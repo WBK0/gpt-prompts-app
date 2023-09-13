@@ -16,6 +16,9 @@ const UserSchema = new Schema({
     required: [true, 'Lastname is required!'],
     match: [/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, "Lastname invalid"]
   },
+  password: {
+    type: String
+  },
   image: {
     type: String,
   }
