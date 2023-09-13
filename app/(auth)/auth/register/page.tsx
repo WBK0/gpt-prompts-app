@@ -33,9 +33,7 @@ const Register = () => {
         firstname: userData.firstname,
         lastname: userData.lastname
       }),
-      
     });
-    console.log(res)
   }
 
   return (

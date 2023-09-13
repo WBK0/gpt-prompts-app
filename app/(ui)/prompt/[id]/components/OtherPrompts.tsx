@@ -8,8 +8,6 @@ const OtherPrompts = async () => {
     headers: headers()
   });
 
-  // console.log(response)
-
   const prompts : Prompt[] = await response.json()
 
   return (

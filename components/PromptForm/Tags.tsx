@@ -21,7 +21,6 @@ const Tags = ({ tags, setTags, tagsError }: TagsProps) => {
     console.log(errors)
     // Check if tag input is not empty and tag is not already in tags array 
     if (!errors.tagInput && !errors.tags) {
-      console.log('errors')
       setTags([...tags, tagInput.trim()])
       setTagInput('')
     }else{

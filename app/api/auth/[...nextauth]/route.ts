@@ -25,8 +25,6 @@ export const authOptions : AuthOptions = {
 
         const user = await User.findOne({ email: credentials?.email });
 
-        console.log("user", user)
-
         if (!user || !(await compare(credentials.password, user.password))) {
           return null;
         }
@@ -73,39 +71,39 @@ export const authOptions : AuthOptions = {
     
       return session;
     },
-    // async signIn({user, account} : {user: UserInterface}) {
-    //   if (account.provider === "google") {
-    //     console.log(user)
-    //     try {
-    //       await connectToDB();
+    async signIn({user, account} : {user: UserInterface, account: any}) {
+      if (account.provider === "google") {
+        try {
+          await connectToDB();
 
-    //       if (!user || !user.name || !user.email || !user.image) {
-    //         throw new Error("Incomplete profile");
-    //       }
+          if (!user || !user.name || !user.email || !user.image) {
+            throw new Error("Incomplete profile");
+          }
       
-    //       // Check if user exists in MongoDB
-    //       const userExists = await User.findOne({ email: user.email });
+          // Check if user exists in MongoDB
+          const userExists = await User.findOne({ email: user.email });
 
-    //       // If user does not exist, create new one
-    //       if (!userExists) {
-    //         await User.create({
-    //           email: user.email,
-    //           firstname: user.name.split(" ")[0],
-    //           lastname: user.name.split(" ")[1],
-    //           image: user.image,
-    //         });
-    //       }
+          // If user does not exist, create new one
+          if (!userExists) {
+            await User.create({
+              email: user.email,
+              firstname: user.name.split(" ")[0],
+              lastname: user.name.split(" ")[1],
+              image: user.image,
+            });
+          }
       
-    //       return true;
-    //     } catch (error) {
-    //       console.log("Error checking if user exists: ", (error as Error).message);
-    //       return false;
-    //     }
-    //   }
-    //   if(account.provider === 'credentials'){
-    //     console.log('chuj dupa cyck9i')
-    //   }
-    // }
+          return true;
+        } catch (error) {
+          console.log("Error checking if user exists: ", (error as Error).message);
+          return false;
+        }
+      }
+      if(account.provider === 'credentials'){
+        return true;
+      }
+      return false;
+    }
   }
 }
 

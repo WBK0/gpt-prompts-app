@@ -1,5 +1,5 @@
 import Searchbar from "@components/Searchbar";
-import PromptsList from "../../../../components/PromptsList";
+import PromptsList from "@components/PromptsList";
 import { SearchParams } from "@interfaces/SearchParams.interface";
 
 const UserPrompts = ({ params } : {params: SearchParams}) => {
