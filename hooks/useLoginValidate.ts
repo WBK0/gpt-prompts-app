@@ -1,0 +1,46 @@
+export interface RegisterErrors{
+  firstname: string | null,
+  lastname: string | null,
+  email: string | null,
+  password: string | null
+}
+
+
+export const useLoginValidate = () => {
+  const validateRegister = (userData : any) => {
+    console.log(userData)
+    let errors: RegisterErrors = {
+      firstname: null,
+      lastname: null,
+      email: null,
+      password: null
+    }
+    if(userData.firstname.length < 2){
+      errors.firstname = "First name is required and must be at least 2 characters";
+    }
+    if(userData.lastname.length < 2){
+      errors.lastname = "Last name is required and must be at least 2 characters";
+    }
+    if(!userData.email){
+      errors.email = "Email is required";
+    }
+    if(!userData.password){
+      errors.password = "Password is required";
+    }
+    if(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}$/g.test(userData.password)){
+      errors.password = "Password must contain at least one uppercase letter, one lowercase letter and one number";
+    }
+    if(!/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/g.test(userData.firstname)){
+      errors.firstname = "First name must contain only letters";
+    }
+    if(!/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/g.test(userData.lastname)){
+      errors.lastname = "Last name must contain only letters";
+    }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/g.test(userData.email)){
+      errors.email = "Please enter a valid email";
+    }
+    return errors;
+  }
+
+  return { validateRegister };
+}

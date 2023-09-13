@@ -1,6 +1,8 @@
+import ToastProvider from "@components/Providers/ToastProvider";
 import "@styles/globals.css";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import type { Metadata } from 'next'
+import SessionProvider from "@components/Providers/UserProvider";
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -16,7 +18,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-gray-100">
-        {children}
+        <ToastProvider>
+          <SessionProvider>
+            {children}
+          </SessionProvider>
+        </ToastProvider>
       </body>
     </html>
   )

@@ -14,6 +14,19 @@ export async function POST(req: Request) {
       password: string;
     };
 
+    if(!firstname || !lastname || !email || !password){
+      return new NextResponse(JSON.stringify("Please fill in all fields"), { status: 400 });
+    }
+    if(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}$/g.test(password)){
+      return new NextResponse(JSON.stringify("Password must contain at least one uppercase letter, one lowercase letter and one number"), { status: 400 });
+    }
+    if(!/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/g.test(firstname) || !/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/g.test(lastname)){
+      return new NextResponse(JSON.stringify("First and last name must contain only letters"), { status: 400 });
+    }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/g.test(email)){
+      return new NextResponse(JSON.stringify("Please enter a valid email"), { status: 400 });
+    }
+
     const hashed_password = await hash(password, 12);
 
     const newUser = new User({ 
