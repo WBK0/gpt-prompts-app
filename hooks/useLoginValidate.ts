@@ -5,10 +5,14 @@ export interface RegisterErrors{
   password: string | null
 }
 
+export interface LoginErrors{
+  email: string | null,
+  password: string | null
+}
+
 
 export const useLoginValidate = () => {
   const validateRegister = (userData : any) => {
-    console.log(userData)
     let errors: RegisterErrors = {
       firstname: null,
       lastname: null,
@@ -42,5 +46,24 @@ export const useLoginValidate = () => {
     return errors;
   }
 
-  return { validateRegister };
+  const validateLogin = (userData: any) => {
+    let errors: LoginErrors = {
+      email: null,
+      password: null
+    }
+    if(!userData.email){
+      errors.email = "Email is required";
+    }
+    if(!userData.password){
+      errors.password = "Password is required";
+    }
+    if(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}$/g.test(userData.password)){
+      errors.password = "Password must contain at least one uppercase letter, one lowercase letter and one number";
+    }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/g.test(userData.email)){
+      errors.email = "Please enter a valid email";
+    }
+    return errors;
+  }
+  return { validateRegister, validateLogin };
 }
