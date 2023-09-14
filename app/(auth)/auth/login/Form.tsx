@@ -1,0 +1,100 @@
+"use client";
+import AuthButton from "@components/Auth/AuthButton";
+import AuthInput from "@components/Auth/AuthInput";
+import { LoginErrors, useLoginValidate } from "@hooks/useLoginValidate";
+import { signIn } from "next-auth/react";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { userData } from "@interfaces/UserData.interface";
+import { useRouter } from "next/navigation";
+
+const Form = () => {
+  const [userData ,setUserData] = useState<userData>({
+    email: "",
+    password: ""
+  });
+  const [errors, setErrors] = useState<LoginErrors>({
+    email: null
+  });
+  const [focusElement, setFocusElement] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  
+  const { validateLogin } = useLoginValidate();
+  const router = useRouter();
+
+  const handleFocus = async (e: React.FocusEvent<HTMLInputElement>) => {
+    setFocusElement(e.target.name)
+  }
+
+  const handleBlur = async () => {
+    setFocusElement(null)
+  }
+
+  const handleWrite = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserData((prev) => {
+      return {...prev , [e.target.name]: e.target.value}
+    })
+  } 
+
+  const handleSubmit = async (e : React.FormEvent) => {
+    try {
+      e.preventDefault();
+      setIsSubmitting(true);
+      const validateErrors = validateLogin(userData);
+      setErrors(validateErrors)
+      if(validateErrors.email){
+        throw new Error(validateErrors.email);
+      }
+      const res = await signIn("credentials", {
+        redirect: false,
+        email: userData.email,
+        password: userData.password,
+        callbackUrl: "/"
+      });
+      if(res && res.error){
+        setUserData({
+          ...userData,
+          password: ''
+        });
+        throw new Error('Log in failed, you provided wrong email or password');
+      }
+      router.push("/");
+    } catch (error : unknown) {
+      if(error instanceof Error){
+        toast.error(error.message);
+      }
+    }
+    finally{
+      setIsSubmitting(false);
+    }
+  }
+  
+  return (
+    <form className="flex flex-col space-y-4 w-full" onSubmit={handleSubmit}>
+      <AuthInput
+        name="email"
+        placeholder="Email"
+        type="email"
+        handleWrite={handleWrite}
+        handleFocus={handleFocus}
+        handleBlur={handleBlur}
+        value={userData.email}
+        error={errors.email}
+        isFocus={focusElement === 'email'}
+      />
+      <AuthInput
+        name="password"
+        placeholder="Password"
+        type="password"
+        handleWrite={handleWrite}
+        value={userData.password}
+      />
+      <AuthButton
+        isSubmitting={isSubmitting}
+      >
+        Login
+      </AuthButton>
+    </form>
+  )
+}
+export default Form;
