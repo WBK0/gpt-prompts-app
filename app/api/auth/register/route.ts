@@ -2,6 +2,8 @@ import User from "@models/user";
 import { connectToDB } from "@utils/database";
 import { hash } from "bcryptjs";
 import { NextResponse } from "next/server";
+import { authOptions } from "../[...nextauth]/route";
+import { getCsrfToken, signIn } from "next-auth/react";
 
 export async function POST(req: Request) {
   try {
@@ -44,6 +46,7 @@ export async function POST(req: Request) {
         email: user.email,
       },
     });
+
   } catch (error: any) {
     console.log(error)
     return new NextResponse(

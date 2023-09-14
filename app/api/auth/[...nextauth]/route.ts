@@ -21,6 +21,8 @@ export const authOptions : AuthOptions = {
       async authorize(credentials) { 
         await connectToDB();
 
+        console.log('xd')
+
         if (!credentials?.email || !credentials.password) {
           return null;
         }
@@ -62,6 +64,7 @@ export const authOptions : AuthOptions = {
       return token;
     },
     async session({ session }: { session: Session }) {
+      console.log("session: ", session)
       // store the user id from MongoDB to session
       const sessionUser = await User.findOne({ email: session.user?.email });
       
