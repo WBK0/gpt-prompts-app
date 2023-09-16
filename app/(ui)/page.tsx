@@ -15,7 +15,7 @@ const Home = () => {
           POPULAR PROMPTS
         </h1>
         <PromptsList
-          url={`/api/prompt?max=3&sort=favorites`}
+          url={`/prompt?max=3&sort=favorites`}
         />
       </div>
     </>

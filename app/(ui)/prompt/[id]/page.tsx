@@ -17,7 +17,7 @@ type PromptProps = {
 }
 
 const PromptSite = async ({ params } : PromptProps) => {
-  const response = await fetch(`http://localhost:3000/api/prompt/${params.id}`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/prompt/${params.id}`, {
     cache: "no-store",
     headers: headers(),
   })

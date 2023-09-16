@@ -37,7 +37,7 @@ const PromptsList = ({ params } : { params : SearchParams}) => {
   }, [prompts]);
 
   const getPrompts = async (skip ?: number) => {
-    const response = await fetch(`http://localhost:3000/api/prompt/search?search=${params.search || ''}&skip=${skip || 0}&max=${prompts?.length}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API}/prompt/search?search=${params.search || ''}&skip=${skip || 0}&max=${prompts?.length}`, {
       cache: "no-store"
     });
     const newPrompts : Prompt[] = await response.json();

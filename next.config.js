@@ -13,6 +13,9 @@ const nextConfig = {
       topLevelAwait: true,
     }
     return config
+  },
+  env: {
+    NEXT_PUBLIC_API: process.env.NEXT_PUBLIC_API,
   }
 }
 

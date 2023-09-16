@@ -3,7 +3,7 @@ import Prompt from '@interfaces/prompt.interface';
 import { headers } from 'next/headers';
 
 const OtherPrompts = async () => {
-  const response = await fetch('http://localhost:3000/api/prompt?max=3', {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/prompt?max=3`, {
     cache: "no-store",
     headers: headers()
   });

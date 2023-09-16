@@ -39,7 +39,8 @@ const Form = () => {
       if(validateErrors.email || validateErrors.password || validateErrors.firstname || validateErrors.lastname){
         throw new Error("Validation error");
       }
-      const res = await fetch("http://localhost:3000/api/auth/register", {
+
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API}/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

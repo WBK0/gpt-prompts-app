@@ -8,13 +8,13 @@ const PromptsList = ({ url }: {url: string}) => {
   const [prompts, setPrompts] = useState<Prompt[] | null>(null);
 
   const getPrompts = async () => {
-    const response = await fetch(`http://localhost:3000${url}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API}/${url}`, {
       cache: "no-store"
     });
     const prompts : Prompt[] = await response.json();
     setPrompts(prompts);
   }
-  
+
   useEffect(() => {
     getPrompts()
   }, [])

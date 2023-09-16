@@ -10,7 +10,7 @@ const FavoritesPrompts = ({ params } : {params: SearchParams}) => {
       </h1>
       <Searchbar baseUrl='/user/saved'/>
       <PromptsList
-        url={`/api/prompt/user/favorites?search=${params.search || ''}`}
+        url={`/prompt/user/favorites?search=${params.search || ''}`}
       />
     </div>
   )

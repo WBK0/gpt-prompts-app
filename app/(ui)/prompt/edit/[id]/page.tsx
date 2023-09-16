@@ -29,7 +29,7 @@ const PromptEditForm = ({ params }: { params: {id : string}}) => {
 
   const getPrompt = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/api/prompt/${params.id}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API}/prompt/${params.id}`, {
         cache: "no-store"
       })
 
@@ -62,7 +62,7 @@ const PromptEditForm = ({ params }: { params: {id : string}}) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:3000/api/prompt/${params.id}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API}/prompt/${params.id}`, {
         method: "PATCH",
         body: JSON.stringify({
           title: title,

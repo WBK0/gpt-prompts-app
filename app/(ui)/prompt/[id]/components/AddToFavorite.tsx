@@ -6,7 +6,7 @@ const AddToFavorite = ({favorites, id, isFavorite} : {favorites : number, isFavo
   const [likes, setLikes] = useState(favorites);
 
   const handleSubmit = async () => {
-    const response = await fetch(`http://localhost:3000/api/prompt/${id}/${isLiked ? 'dislike' : 'like'}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API}/prompt/${id}/${isLiked ? 'dislike' : 'like'}`, {
       method: 'PATCH'
     })
     const data = await response.json();

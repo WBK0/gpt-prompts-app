@@ -13,10 +13,11 @@ const PromptCard = ({ prompt, refreshPrompts }: {prompt: Prompt, refreshPrompts?
   useEffect(() => {
     setIsLiked(prompt.isLiked)
   }, [prompt])
+    console.log(process.env.NEXT_PUBLIC_API)
 
   const handleClick = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/api/prompt/${prompt._id}/${isLiked ? 'dislike' : 'like'}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API}/prompt/${prompt._id}/${isLiked ? 'dislike' : 'like'}`, {
       method: 'PATCH'
     })
 

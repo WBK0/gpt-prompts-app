@@ -1,2 +1,0 @@
-TODO:
-  * Widok usuwania prompta

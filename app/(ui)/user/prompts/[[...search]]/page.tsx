@@ -10,7 +10,7 @@ const UserPrompts = ({ params } : {params: SearchParams}) => {
       </h1>
       <Searchbar baseUrl='/user/prompts'/>
       <PromptsList 
-        url={`/api/prompt/user?search=${params.search || ''}`} 
+        url={`/prompt/user?search=${params.search || ''}`} 
       />
     </div>
   )

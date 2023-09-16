@@ -22,7 +22,7 @@ const PromptForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/api/prompt/new', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API}/prompt/new`, {
         method: "POST",
         body: JSON.stringify({
           title: title,

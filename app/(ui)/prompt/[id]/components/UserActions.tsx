@@ -12,7 +12,7 @@ const UserActions = ({ params } : {params: {id: string}}) => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/api/prompt/${params.id}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API}/prompt/${params.id}`, {
         method: 'DELETE'
       })
       if(!response.ok) {
