@@ -4,9 +4,12 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import User from '@models/user';
 import { connectToDB } from '@utils/database';
 import { compare } from 'bcryptjs';
+import { MongoDBAdapter } from '@auth/mongodb-adapter';
+import clientPromise from '@app/api/mongodb';
 
 // Define options for NextAuth
 export const authOptions : AuthOptions = {
+  adapter: MongoDBAdapter(clientPromise),
   providers: [
     CredentialsProvider({
       name: "Sign in",
@@ -20,8 +23,6 @@ export const authOptions : AuthOptions = {
       },
       async authorize(credentials) { 
         await connectToDB();
-
-        console.log('xd')
 
         if (!credentials?.email || !credentials.password) {
           return null;
@@ -77,6 +78,7 @@ export const authOptions : AuthOptions = {
       return session;
     },
     async signIn({user, account} : {user: UserInterface, account: any}) {
+      console.log(user, account)
       if (account.provider === "google") {
         try {
           await connectToDB();
@@ -111,7 +113,6 @@ export const authOptions : AuthOptions = {
     }
   }
 }
-
 
 export const handler = NextAuth(authOptions);
 
