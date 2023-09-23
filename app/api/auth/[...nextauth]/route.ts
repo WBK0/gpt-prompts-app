@@ -65,7 +65,6 @@ export const authOptions : AuthOptions = {
       return token;
     },
     async session({ session }: { session: Session }) {
-      console.log("session: ", session)
       // store the user id from MongoDB to session
       const sessionUser = await User.findOne({ email: session.user?.email });
       
@@ -78,7 +77,6 @@ export const authOptions : AuthOptions = {
       return session;
     },
     async signIn({user, account} : {user: UserInterface, account: any}) {
-      console.log(user, account)
       if (account.provider === "google") {
         try {
           await connectToDB();

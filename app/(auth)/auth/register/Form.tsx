@@ -5,6 +5,8 @@ import { useLoginValidate } from "@hooks/useLoginValidate"
 import { useState } from "react"
 import { userData } from "@interfaces/UserData.interface"
 import { RegisterErrors } from "@hooks/useLoginValidate"
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const Form = () => {
   const [userData ,setUserData] = useState<userData>({
@@ -21,6 +23,8 @@ const Form = () => {
   })
   const [focusElement, setFocusElement] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+  const router = useRouter();
 
   const { validateRegister } = useLoginValidate();
 
@@ -52,7 +56,13 @@ const Form = () => {
           lastname: userData.lastname
         }),
       })
-      console.log(res)
+      if(res.ok){
+        toast.success("Account created successfully, please login now");
+        router.push("/auth/login");
+      }else{
+        const data = await res.json();
+        throw new Error(data.message);
+      }
     } catch (error) {
       console.error(error)
     } finally {

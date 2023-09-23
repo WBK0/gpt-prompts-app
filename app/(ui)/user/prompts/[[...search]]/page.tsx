@@ -1,5 +1,5 @@
 import Searchbar from "@components/Searchbar";
-import PromptsList from "@components/PromptsList";
+import PromptsList from "../../../search/[[...search]]/PromptsSearchList";
 import { SearchParams } from "@interfaces/SearchParams.interface";
 
 const UserPrompts = ({ params } : {params: SearchParams}) => {
@@ -10,7 +10,8 @@ const UserPrompts = ({ params } : {params: SearchParams}) => {
       </h1>
       <Searchbar baseUrl='/user/prompts'/>
       <PromptsList 
-        url={`/prompt/user?search=${params.search || ''}`} 
+        params={params}
+        url={`${process.env.NEXT_PUBLIC_API}/prompt/user`} 
       />
     </div>
   )

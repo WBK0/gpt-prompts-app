@@ -11,8 +11,8 @@ export const GET = async (request : NextRequest) => {
     let session = await getServerSession(authOptions);
 
     const query = request.nextUrl.searchParams.get("search"); // Get search query from url
-
-    console.log(query)
+    const skip = request.nextUrl.searchParams.get("skip"); // Get skip number from url
+    const max = request.nextUrl.searchParams.get("max"); // Get skip number from url
 
     let prompts = await Prompt.find({
       $and: [
@@ -22,7 +22,10 @@ export const GET = async (request : NextRequest) => {
         ] },
         { favoritesUserIds: { $elemMatch: { $eq: session?.user?.id } } } // Search favoritesUserIds
       ]
-    }).sort({ createdAt: -1 }).limit(12);
+    })
+    .sort({ createdAt: -1 })
+    .skip(Number(skip))
+    .limit(Number(max) || 12);
 
     prompts = prompts.map(prompt => {
       let isLiked = false;

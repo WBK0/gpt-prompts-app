@@ -1,5 +1,5 @@
 import Searchbar from '@components/Searchbar';
-import PromptsList from '@components/PromptsList';
+import PromptsList from '../../../search/[[...search]]/PromptsSearchList';
 import { SearchParams } from '@interfaces/SearchParams.interface';
 
 const FavoritesPrompts = ({ params } : {params: SearchParams}) => {
@@ -10,7 +10,8 @@ const FavoritesPrompts = ({ params } : {params: SearchParams}) => {
       </h1>
       <Searchbar baseUrl='/user/saved'/>
       <PromptsList
-        url={`/prompt/user/favorites?search=${params.search || ''}`}
+        url={`${process.env.NEXT_PUBLIC_API}/prompt/user/favorites`}
+        params={params}
       />
     </div>
   )

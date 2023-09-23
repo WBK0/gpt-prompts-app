@@ -6,37 +6,47 @@ import Tags from './Tags';
 import Prompt from '@interfaces/prompt.interface';
 import Link from 'next/link';
 import { toast } from 'react-toastify';
+import { useSession } from 'next-auth/react';
 
 const PromptCard = ({ prompt, refreshPrompts }: {prompt: Prompt, refreshPrompts?: () => void}) => {
   const [isLiked, setIsLiked] = useState(prompt.isLiked)
 
+  const session = useSession();
+
   useEffect(() => {
     setIsLiked(prompt.isLiked)
   }, [prompt])
-    console.log(process.env.NEXT_PUBLIC_API)
 
   const handleClick = async () => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API}/prompt/${prompt._id}/${isLiked ? 'dislike' : 'like'}`, {
-      method: 'PATCH'
-    })
-
-    const data = await response.json();
-
-    if(!response.ok){
-      if(response.status === 400){
-        setIsLiked(!isLiked);
+      if(session.status === 'unauthenticated') {
+        throw new Error('You must be logged in to like a prompt');
       }
-      throw new Error(data);
-    }
+
+      setIsLiked(!isLiked);
+
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API}/prompt/${prompt._id}/${isLiked ? 'dislike' : 'like'}`, {
+        method: 'PATCH'
+      })
+
+      const data = await response.json();
+
+      if(!response.ok){
+        if(response.status === 400){
+          setIsLiked(!isLiked);
+        }
+        throw new Error(data);
+      }
     
-    if(refreshPrompts){
-      refreshPrompts();
-    }else{
-      setIsLiked(data.isLiked);
-    }
-    } catch (error) {
-      toast.error(`${error}`)
+      if(refreshPrompts){
+        refreshPrompts();
+      }else{
+        setIsLiked(data.isLiked);
+      }
+    } catch (error : unknown) {
+      if(error instanceof Error){
+        toast.error(`${error.message}`);
+      }
     }
   }
 

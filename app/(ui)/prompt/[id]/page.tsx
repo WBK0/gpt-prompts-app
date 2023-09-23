@@ -40,7 +40,7 @@ const PromptSite = async ({ params } : PromptProps) => {
           <div className="px-6 py-4 bg-gray-100 flex items-center justify-between">
             <AddToFavorite favorites={prompt.favorites} id={prompt._id} isFavorite={prompt.isLiked}/>
             {
-              session 
+              session?.user?.email === prompt.creatorEmail
               ?
                 <UserActions params={params} />
               : 

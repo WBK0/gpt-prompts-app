@@ -8,6 +8,7 @@ const Search = async ({ params }: {params: SearchParams}) => {
     <div>
       <Searchbar baseUrl='/search'/> 
       <PromptsList 
+        url={`${process.env.NEXT_PUBLIC_API}/prompt/search`}
         params={params}
       />
     </div>

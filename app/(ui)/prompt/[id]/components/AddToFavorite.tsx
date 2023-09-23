@@ -1,17 +1,32 @@
 "use client";
+import { useSession } from 'next-auth/react';
 import React, { useState } from 'react'
+import { toast } from 'react-toastify';
 
 const AddToFavorite = ({favorites, id, isFavorite} : {favorites : number, isFavorite: boolean, id: string}) => {
   const [isLiked, setIsLiked] = useState(isFavorite);
   const [likes, setLikes] = useState(favorites);
 
+  const session = useSession();
+
   const handleSubmit = async () => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API}/prompt/${id}/${isLiked ? 'dislike' : 'like'}`, {
-      method: 'PATCH'
-    })
-    const data = await response.json();
-    setLikes(data.favorites);
-    setIsLiked(data.isLiked);
+    try {
+      if(session.status === 'unauthenticated') {
+        throw new Error('You must be logged in to like a prompt');
+      }
+      setIsLiked(!isLiked);
+      setLikes(isLiked ? likes - 1 : likes + 1);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API}/prompt/${id}/${isLiked ? 'dislike' : 'like'}`, {
+        method: 'PATCH'
+      })
+      const data = await response.json();
+      setLikes(data.favorites);
+      setIsLiked(data.isLiked);
+    } catch (error : unknown) {
+      if(error instanceof Error){
+        toast.error(error.message);
+      }
+    }
   }
 
   return (

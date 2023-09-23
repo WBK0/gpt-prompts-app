@@ -5,7 +5,7 @@ import { SearchParams } from '@interfaces/SearchParams.interface';
 import Prompt from '@interfaces/prompt.interface';
 import { useEffect, useState } from 'react';
 
-const PromptsList = ({ params } : { params : SearchParams}) => {
+const PromptsList = ({ params, url } : { params : SearchParams, url: String}) => {
   const [prompts, setPrompts] = useState<Prompt[] | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [noMorePrompts, setNoMorePrompts] = useState<boolean>(false);
@@ -37,7 +37,7 @@ const PromptsList = ({ params } : { params : SearchParams}) => {
   }, [prompts]);
 
   const getPrompts = async (skip ?: number) => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API}/prompt/search?search=${params.search || ''}&skip=${skip || 0}&max=${prompts?.length}`, {
+    const response = await fetch(`${url}?search=${params.search || ''}&skip=${skip || 0}&max=${prompts?.length}`, {
       cache: "no-store"
     });
     const newPrompts : Prompt[] = await response.json();
