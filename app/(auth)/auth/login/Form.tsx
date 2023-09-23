@@ -1,7 +1,7 @@
 "use client";
 import AuthButton from "@components/Auth/AuthButton";
 import AuthInput from "@components/Auth/AuthInput";
-import { LoginErrors, useLoginValidate } from "@hooks/useLoginValidate";
+import { useLoginValidate } from "@hooks/useLoginValidate";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -13,9 +13,7 @@ const Form = () => {
     email: "",
     password: ""
   });
-  const [errors, setErrors] = useState<LoginErrors>({
-    email: null
-  });
+  const [emailError, setEmailError] = useState<null | string>(null)
   const [focusElement, setFocusElement] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   
@@ -41,9 +39,9 @@ const Form = () => {
       e.preventDefault();
       setIsSubmitting(true);
       const validateErrors = validateLogin(userData);
-      setErrors(validateErrors)
-      if(validateErrors.email){
-        throw new Error(validateErrors.email);
+      setEmailError(validateErrors)
+      if(emailError){
+        throw new Error(emailError);
       }
       const res = await signIn("credentials", {
         redirect: false,
@@ -79,7 +77,7 @@ const Form = () => {
         handleFocus={handleFocus}
         handleBlur={handleBlur}
         value={userData.email}
-        error={errors.email}
+        error={emailError}
         isFocus={focusElement === 'email'}
       />
       <AuthInput

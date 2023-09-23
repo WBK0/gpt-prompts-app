@@ -5,9 +5,7 @@ export interface RegisterErrors{
   password: string | null
 }
 
-export interface LoginErrors{
-  email: string | null
-}
+type LoginErrors = string | null;
 
 
 export const useLoginValidate = () => {
@@ -46,16 +44,14 @@ export const useLoginValidate = () => {
   }
 
   const validateLogin = (userData: any) => {
-    let errors: LoginErrors = {
-      email: null
-    }
+    let emailError: LoginErrors = null
     if(!userData.email){
-      errors.email = "Email is required";
+      emailError = "Email is required";
     }
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/g.test(userData.email)){
-      errors.email = "Please enter a valid email";
+      emailError= "Please enter a valid email";
     }
-    return errors;
+    return emailError;
   }
   return { validateRegister, validateLogin };
 }
