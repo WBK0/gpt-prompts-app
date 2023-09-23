@@ -10,7 +10,6 @@ const AddToFavorite = ({favorites, id, isFavorite} : {favorites : number, isFavo
   const session = useSession();
 
   const handleSubmit = async () => {
-<<<<<<< HEAD
     try {
       if(session.status === 'unauthenticated') {
         throw new Error('You must be logged in to like a prompt');
@@ -28,15 +27,6 @@ const AddToFavorite = ({favorites, id, isFavorite} : {favorites : number, isFavo
         toast.error(error.message);
       }
     }
-=======
-    setIsLiked(!isLiked)
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API}/prompt/${id}/${isLiked ? 'dislike' : 'like'}`, {
-      method: 'PATCH'
-    })
-    const data = await response.json();
-    setLikes(data.favorites);
-    setIsLiked(data.isLiked);
->>>>>>> 0f7823f3b5f2498632aeead4766bc25e3f8276e1
   }
 
   return (

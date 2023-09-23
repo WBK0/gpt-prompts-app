@@ -13,11 +13,7 @@ const GptAnswer = ({ answer } : {answer?: string}) => {
     <div className="mt-6 bg-black px-5 py-5 rounded-md ">
       <h2 className="text-xl font-gilroyBold text-white flex items-center">
         <Image src={gptLogo} width={24} alt="gpt logo" className="mr-2" />
-<<<<<<< HEAD
         Example GPT Answer:
-=======
-        Example GPT answer:
->>>>>>> 0f7823f3b5f2498632aeead4766bc25e3f8276e1
       </h2>
       <div className="break-words w-100">
         {
