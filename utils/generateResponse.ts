@@ -8,7 +8,7 @@ export const generateResponse = async (content : string, id: string) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        prompt: `I will provide you prompt, you will answer for it using html tags if you found any words in [] or <> provide their matching words. Use <h2>, <h3>, <h4>, <p>, <strong>, <i>, <ul>, <li> html tags. My prompt is: ${content}`
+        prompt: `I will provide you prompt, you will answer for it using html tags if you found any words in [] or <> provide their matching words. Use <h2>, <h3>, <h4>, <p>, <strong>, <i>, <ul>, <li> html tags. In your reply, ignore the fact that you are replying with html tags, but don't talk about it. My prompt is: ${content}`
       }),
     });
   

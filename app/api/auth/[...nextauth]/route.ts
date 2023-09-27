@@ -95,6 +95,7 @@ export const authOptions : AuthOptions = {
               firstname: user.name.split(" ")[0],
               lastname: user.name.split(" ")[1],
               image: user.image,
+              isActive: true
             });
           }
       

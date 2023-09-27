@@ -36,7 +36,6 @@ const PromptsList = ({ url }: {url: string}) => {
           : 
             <h1 className='text-2xl font-gilroyBold'>No prompts found</h1>  
         }
-      
     </div>
   )
 }
