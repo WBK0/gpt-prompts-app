@@ -16,8 +16,6 @@ const Activate = async (params: ActivateParams) => {
     cache: "no-store"
   })
 
-  const data = await response.json();
-
   return (
     <div className="mx-auto flex justify-center h-screen items-center bg-snow">
       <div className="w-96 flex justify-center pt-12 flex-wrap flex-col py-6">

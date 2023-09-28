@@ -1,4 +1,3 @@
-import ActivationToken from "@models/activationToken";
 import User from "@models/user";
 import sendActiveAccountMail from "@utils/sendActiveAccountMail";
 import { NextResponse } from "next/server";
