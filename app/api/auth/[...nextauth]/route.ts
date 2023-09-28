@@ -33,6 +33,10 @@ export const authOptions : AuthOptions = {
         if (!user || !(await compare(credentials.password, user.password))) {
           return null;
         }
+
+        if(!user.isActive){
+          throw new Error("Account is not active");
+        }
         
         return {
           email: user.email,

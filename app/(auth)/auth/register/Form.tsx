@@ -6,7 +6,7 @@ import { useState } from "react"
 import { userData } from "@interfaces/UserData.interface"
 import { RegisterErrors } from "@hooks/useLoginValidate"
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
+import ActiveAccountModal from "@components/Modal/ActiveAccountModal";
 
 const Form = () => {
   const [userData ,setUserData] = useState<userData>({
@@ -23,8 +23,7 @@ const Form = () => {
   })
   const [focusElement, setFocusElement] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-
-  const router = useRouter();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const { validateRegister } = useLoginValidate();
 
@@ -56,15 +55,18 @@ const Form = () => {
           lastname: userData.lastname
         }),
       })
+
       if(res.ok){
-        toast.success("Account created successfully, please login now");
-        router.push("/auth/login");
+        toast.success("Account created successfully, please confirm email now");
+        setIsModalOpen(true);
       }else{
         const data = await res.json();
-        throw new Error(data.message);
+        throw new Error(data);
       }
-    } catch (error) {
-      console.error(error)
+
+    } catch (error : unknown) {
+      if(error instanceof Error)
+        toast.error(error.message);
     } finally {
       setIsSubmitting(false);
     }
@@ -79,55 +81,65 @@ const Form = () => {
   }
   
   return (
-    <form className="flex flex-col space-y-4 w-full" onSubmit={handleSubmit}>
-      <AuthInput 
-        type="text"
-        placeholder="Firstname"
-        name="firstname"
-        handleWrite={handleWrite}
-        handleFocus={handleFocus}
-        handleBlur={handleBlur}
-        value={userData.firstname}
-        error={errors.firstname}
-        isFocus={focusElement === 'firstname'}
-      />
-      <AuthInput 
-        type="text"
-        placeholder="Lastname"
-        name="lastname"
-        handleWrite={handleWrite}
-        handleFocus={handleFocus}
-        handleBlur={handleBlur}
-        value={userData.lastname}
-        error={errors.lastname}
-        isFocus={focusElement === 'lastname'}
-      />
-      <AuthInput 
-        type="email"
-        placeholder="Email"
-        name="email"
-        handleWrite={handleWrite}
-        handleFocus={handleFocus}
-        handleBlur={handleBlur}
-        value={userData.email}
-        error={errors.email}
-        isFocus={focusElement === 'email'}
-      />
-      <AuthInput
-        type="password"
-        placeholder="Password"
-        name="password"
-        handleWrite={handleWrite}
-        handleFocus={handleFocus}
-        handleBlur={handleBlur}
-        value={userData.password}
-        error={errors.password}
-        isFocus={focusElement === 'password'}
-      />
-      <AuthButton isSubmitting={isSubmitting}>
-        Register
-      </AuthButton>
-    </form>
+    <>
+      {
+        isModalOpen
+        ? <ActiveAccountModal 
+            handleClose={() => setIsModalOpen(false)}
+            email={userData.email}
+          />
+        : null
+      }
+      <form className="flex flex-col space-y-4 w-full" onSubmit={handleSubmit}>
+        <AuthInput 
+          type="text"
+          placeholder="Firstname"
+          name="firstname"
+          handleWrite={handleWrite}
+          handleFocus={handleFocus}
+          handleBlur={handleBlur}
+          value={userData.firstname}
+          error={errors.firstname}
+          isFocus={focusElement === 'firstname'}
+        />
+        <AuthInput 
+          type="text"
+          placeholder="Lastname"
+          name="lastname"
+          handleWrite={handleWrite}
+          handleFocus={handleFocus}
+          handleBlur={handleBlur}
+          value={userData.lastname}
+          error={errors.lastname}
+          isFocus={focusElement === 'lastname'}
+        />
+        <AuthInput 
+          type="email"
+          placeholder="Email"
+          name="email"
+          handleWrite={handleWrite}
+          handleFocus={handleFocus}
+          handleBlur={handleBlur}
+          value={userData.email}
+          error={errors.email}
+          isFocus={focusElement === 'email'}
+        />
+        <AuthInput
+          type="password"
+          placeholder="Password"
+          name="password"
+          handleWrite={handleWrite}
+          handleFocus={handleFocus}
+          handleBlur={handleBlur}
+          value={userData.password}
+          error={errors.password}
+          isFocus={focusElement === 'password'}
+        />
+        <AuthButton isSubmitting={isSubmitting}>
+          Register
+        </AuthButton>
+      </form>
+    </>
   )
 }
 export default Form

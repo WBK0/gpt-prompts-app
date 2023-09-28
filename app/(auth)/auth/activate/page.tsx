@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { redirect } from 'next/navigation'
 import Redirect from "./redirect";
 
 interface ActivateParams {
@@ -22,14 +21,33 @@ const Activate = async (params: ActivateParams) => {
   return (
     <div className="mx-auto flex justify-center h-screen items-center bg-snow">
       <div className="w-96 flex justify-center pt-12 flex-wrap flex-col py-6">
-        <i className="bi bi-check font-96 text-9xl text-green-800 w-full text-center"></i>
+        {
+          response.ok
+          ? <i className="bi bi-check font-96 text-9xl text-green-800 w-full text-center"></i>
+          : <i className="bi bi-x font-96 text-9xl text-red-600 w-full text-center"></i>
+        }
         <h1 className="w-full text-center font-gilroyBold pb-9 text-lg">
-          Your account has been successfully activated!
+          {
+            response.ok
+            ? 'Your account has been successfully activated!'
+            : 'Something went wrong. Please try again later.'
+          }
         </h1>
-        <Link href="/auth/login" className="w-full rounded-xl text-center bg-blue-500 text-white py-2 font-gilroyBold hover:bg-blue-600 cursor-pointer">
-          Log in now!
-        </Link>
-        <Redirect />
+        {
+          response.ok
+          ? <Link href="/auth/login" className="w-full rounded-xl text-center bg-blue-500 text-white py-2 font-gilroyBold hover:bg-blue-600 cursor-pointer">
+              Log in now!
+            </Link>
+          : <Link href="/auth/login" className="w-full rounded-xl text-center bg-red-500 text-white py-2 font-gilroyBold hover:bg-red-600 cursor-pointer">
+              Try again
+            </Link>
+        }
+
+        {
+          response.ok
+          ? <Redirect />
+          : <></>
+        }
       </div>
     </div>
   )

@@ -7,6 +7,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { userData } from "@interfaces/UserData.interface";
 import { useRouter } from "next/navigation";
+import ActiveAccountModal from "@components/Modal/ActiveAccountModal";
 
 const Form = () => {
   const [userData ,setUserData] = useState<userData>({
@@ -16,7 +17,8 @@ const Form = () => {
   const [emailError, setEmailError] = useState<null | string>(null)
   const [focusElement, setFocusElement] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
   const { validateLogin } = useLoginValidate();
   const router = useRouter();
 
@@ -49,6 +51,12 @@ const Form = () => {
         password: userData.password,
         callbackUrl: "/"
       });
+
+      if(res?.error === "Account is not active"){
+        setIsModalOpen(true);
+        throw new Error("Please active your account before login");
+      }
+
       if(res && res.error){
         setUserData({
           ...userData,
@@ -68,31 +76,41 @@ const Form = () => {
   }
   
   return (
-    <form className="flex flex-col space-y-4 w-full" onSubmit={handleSubmit}>
-      <AuthInput
-        name="email"
-        placeholder="Email"
-        type="email"
-        handleWrite={handleWrite}
-        handleFocus={handleFocus}
-        handleBlur={handleBlur}
-        value={userData.email}
-        error={emailError}
-        isFocus={focusElement === 'email'}
-      />
-      <AuthInput
-        name="password"
-        placeholder="Password"
-        type="password"
-        handleWrite={handleWrite}
-        value={userData.password}
-      />
-      <AuthButton
-        isSubmitting={isSubmitting}
-      >
-        Login
-      </AuthButton>
-    </form>
+    <>
+      {
+        isModalOpen
+        ? <ActiveAccountModal 
+            handleClose={() => setIsModalOpen(false)}
+            email={userData.email}
+          />
+        : null
+      }
+      <form className="flex flex-col space-y-4 w-full" onSubmit={handleSubmit}>
+        <AuthInput
+          name="email"
+          placeholder="Email"
+          type="email"
+          handleWrite={handleWrite}
+          handleFocus={handleFocus}
+          handleBlur={handleBlur}
+          value={userData.email}
+          error={emailError}
+          isFocus={focusElement === 'email'}
+        />
+        <AuthInput
+          name="password"
+          placeholder="Password"
+          type="password"
+          handleWrite={handleWrite}
+          value={userData.password}
+        />
+        <AuthButton
+          isSubmitting={isSubmitting}
+        >
+          Login
+        </AuthButton>
+      </form>
+    </>
   )
 }
 export default Form;
