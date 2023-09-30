@@ -6,6 +6,7 @@ import { connectToDB } from '@utils/database';
 import { compare } from 'bcryptjs';
 import { MongoDBAdapter } from '@auth/mongodb-adapter';
 import clientPromise from '@app/api/mongodb';
+import { Adapter } from 'next-auth/adapters';
 
 // Define options for NextAuth
 export const authOptions : AuthOptions = {
@@ -87,19 +88,6 @@ export const authOptions : AuthOptions = {
 
           if (!user || !user.name || !user.email || !user.image) {
             throw new Error("Incomplete profile");
-          }
-      
-          // Check if user exists in MongoDB
-          const userExists = await User.findOne({ email: user.email });
-
-          // If user does not exist, create new one
-          if (!userExists) {
-            await User.create({
-              email: user.email,
-              firstname: user.name.split(" ")[0],
-              lastname: user.name.split(" ")[1],
-              image: user.image
-            });
           }
       
           return true;
