@@ -8,20 +8,22 @@ interface AuthInputProps {
   value?: string;
   error?: string | null;
   isFocus?: boolean;
+  disabled?: boolean;
 }
 
-const AuthInput = ({name, placeholder, type, handleWrite, handleFocus, handleBlur, value, error, isFocus} : AuthInputProps) => {
+const AuthInput = ({name, placeholder, type, handleWrite, handleFocus, handleBlur, value, error, isFocus, disabled} : AuthInputProps) => {
   return (
     <>
       <input 
         type={type} 
         placeholder={placeholder}
-        className={`rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 font-gilroyBold ${error ? 'ring-2 ring-red-600' : null}`} 
+        className={`rounded-lg w-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 font-gilroyBold ${error ? 'ring-2 ring-red-600' : null} disabled:bg-gray-200 disabled:cursor-not-allowed disabled:text-gray-800`} 
         name={name} 
         onChange={handleWrite} 
         onFocus={handleFocus}
         onBlur={handleBlur}
         value={value}
+        disabled={disabled}
       />
       {
         error && isFocus ? <p className="text-red-600 font-gilroyBold text-sm">{error}</p> : null

@@ -7,6 +7,7 @@ import { compare } from 'bcryptjs';
 import { MongoDBAdapter } from '@auth/mongodb-adapter';
 import clientPromise from '@app/api/mongodb';
 import { Adapter } from 'next-auth/adapters';
+import { JWT } from 'next-auth/jwt';
 
 // Define options for NextAuth
 export const authOptions : AuthOptions = {
@@ -58,24 +59,26 @@ export const authOptions : AuthOptions = {
     maxAge: 7 * 24 * 60 * 60
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, account }) {
       if(user) {
         const sessionUser = await User.findOne({ email: user?.email });
         return {
           ...token,
           id: sessionUser?._id.toString(),
+          provider: account?.provider
         }
       }
 
       return token;
     },
-    async session({ session }: { session: Session }) {
+    async session({ session, token }: { session: Session, token: JWT }) {
       // store the user id from MongoDB to session
       const sessionUser = await User.findOne({ email: session.user?.email });
-      
+
       if (sessionUser) {
         if (session.user) {
           session.user.id = sessionUser._id.toString();
+          session.user.provider = token?.provider;
         }
       }
     
