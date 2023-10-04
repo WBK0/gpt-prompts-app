@@ -1,27 +1,28 @@
 import transporter from "./nodemailer";
 import crypto from "crypto";
-import ActivationToken from "@models/activationToken";
+import ResetPasswordToken from "@models/resetPasswordToken";
 
-const sendActiveAccountMail = async (email : string) => {
+const sendResetPasswordMail = async (email : string) => {
   try {
-    const activationToken = crypto.randomBytes(32).toString('hex');
+    const resetPasswordToken = crypto.randomBytes(32).toString('hex');
 
-    const newActivationToken = new ActivationToken({
-      token: activationToken,
-      email: email
+    const newResetPasswordToken = new ResetPasswordToken({
+      token: resetPasswordToken,
+      email: email,
+      expiresAt: new Date(Date.now() + 15 * 60 * 1000) // 15 minutes
     });
-    await newActivationToken.save();
+    await newResetPasswordToken.save();
 
     await transporter.sendMail({
       from: 'no-reply@codebybartlomiej.pl',
       to: email,
-      subject: 'Account activation',
+      subject: 'Reset Password Request',
       html: `
       <html lang="en">
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Email Confirmation</title>
+            <title>Reset Password</title>
             <style>
                 body {
                     font-family: Arial, sans-serif;
@@ -53,9 +54,10 @@ const sendActiveAccountMail = async (email : string) => {
         <body>
             <div class="container">
                 <img src="http://localhost:3002/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.a765e515.png&w=96&q=77" alt="Your Logo" class="logo">
-                <h1>Email Confirmation</h1>
-                <p>Thank you for registering! Please click the button below to confirm your email address:</p>
-                <a href="${process.env.NEXT_URL}/auth/activate?token=${activationToken}" class="button">Confirm Email</a>
+                <h1>Reset Password</h1>
+                <p>You have requested to reset your password. Please click the button below to reset your password:</p>
+                <a href="${process.env.NEXT_URL}/auth/reset-password?token=${resetPasswordToken}" class="button">Reset Password</a>
+                <p>If you didn't request a password reset, you can safely ignore this message.</p>
             </div>
         </body>
       </html>
@@ -68,4 +70,4 @@ const sendActiveAccountMail = async (email : string) => {
   }
 }
 
-export default sendActiveAccountMail;
+export default sendResetPasswordMail;
