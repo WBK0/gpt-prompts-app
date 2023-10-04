@@ -8,6 +8,8 @@ import { MongoDBAdapter } from '@auth/mongodb-adapter';
 import clientPromise from '@app/api/mongodb';
 import { Adapter } from 'next-auth/adapters';
 import { JWT } from 'next-auth/jwt';
+import { signOut } from 'next-auth/react';
+import { cookies } from 'next/headers';
 
 // Define options for NextAuth
 export const authOptions : AuthOptions = {
@@ -67,7 +69,8 @@ export const authOptions : AuthOptions = {
         return {
           ...token,
           id: sessionUser?._id.toString(),
-          provider: account?.provider
+          provider: account?.provider,
+          generatedAt: Date.now()
         }
       }
 
@@ -77,13 +80,20 @@ export const authOptions : AuthOptions = {
       // store the user id from MongoDB to session
       const sessionUser = await User.findOne({ email: session.user?.email });
 
+      const generatedAt = new Date(token.generatedAt as string);
+
+      if(generatedAt < sessionUser.updatedAt){
+        const cookieStore = cookies()
+        cookieStore.delete('next-auth.session-token');
+      }
+
       if (sessionUser) {
         if (session.user) {
           session.user.id = sessionUser._id.toString();
           session.user.provider = token?.provider;
         }
       }
-    
+
       return session;
     },
     async signIn({user, account} : {user: UserInterface, account: any}) {

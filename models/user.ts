@@ -26,6 +26,10 @@ const UserSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  updatedAt: {
+    type: Date,
+    default: Date.now()
+  },
 });
 
 const User = models.User || model("User", UserSchema);

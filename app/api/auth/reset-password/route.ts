@@ -29,7 +29,7 @@ export async function POST(req: Request) {
     
     const hashed_password = await hash(password, 12);
 
-    const updatePassword = await User.findOneAndUpdate({email: resetToken?.email}, {password: hashed_password});
+    const updatePassword = await User.findOneAndUpdate({email: resetToken?.email}, {password: hashed_password, updatedAt: Date.now()});
 
     const isMailSended = await sendConfirmationResetPassword(resetToken?.email);
     
