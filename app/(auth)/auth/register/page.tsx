@@ -5,7 +5,6 @@ import Form from "./Form";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@app/api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
-import ActiveAccountModal from "@components/Modal/ActiveAccountModal";
 
 const Register = async () => {
   const session = await getServerSession(authOptions);

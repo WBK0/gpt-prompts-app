@@ -17,7 +17,7 @@ export async function POST(req: Request) {
 
     const accountExists = await User.findOne({ email: email });
 
-    if(!accountExists){
+    if(!accountExists || !accountExists.isActive){
       return new NextResponse(JSON.stringify("We can't find account with that e-mail address"), { status: 400 });
     }
 

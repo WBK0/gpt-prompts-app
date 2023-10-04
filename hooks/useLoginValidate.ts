@@ -7,6 +7,11 @@ export interface RegisterErrors{
 
 type LoginErrors = string | null;
 
+export interface ResetPasswordErrors {
+  password: string | null,
+  passwordConfirmation: string | null
+}
+
 
 export const useLoginValidate = () => {
   const validateRegister = (userData : any) => {
@@ -53,5 +58,27 @@ export const useLoginValidate = () => {
     }
     return emailError;
   }
-  return { validateRegister, validateLogin };
+
+  const validateResetPassword = (userData: any) => {
+    let passwordsError : ResetPasswordErrors = {
+      password: null,
+      passwordConfirmation: null
+    };
+    if(!userData.password){
+      passwordsError.password = "Password is required";
+    }
+    if(!userData.passwordConfirmation){
+      passwordsError.passwordConfirmation = "Password confirmation is required";
+    }
+    if(userData.password !== userData.passwordConfirmation){
+      passwordsError.passwordConfirmation = "Passwords do not match";
+    }
+    if(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}$/g.test(userData.password)){
+      passwordsError.password = "Password must contain at least one uppercase letter, one lowercase letter and one number";
+    }
+    return passwordsError;
+  }
+
+
+  return { validateRegister, validateLogin, validateResetPassword };
 }

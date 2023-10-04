@@ -60,6 +60,8 @@ export const authOptions : AuthOptions = {
   },
   callbacks: {
     async jwt({ token, user, account }) {
+      await connectToDB();
+
       if(user) {
         const sessionUser = await User.findOne({ email: user?.email });
         return {
