@@ -3,6 +3,8 @@ import "@styles/globals.css";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import type { Metadata } from 'next'
 import SessionProvider from "@components/Providers/UserProvider";
+import { ThemeProvider } from "@contexts/ThemeContext";
+import AuthTheme from "@components/AuthTheme";
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -20,7 +22,10 @@ export default function RootLayout({
       <body className="bg-gray-100 dark:bg-zinc-900">
         <ToastProvider>
           <SessionProvider>
-            {children}
+            <ThemeProvider>
+              <AuthTheme />
+              {children}
+            </ThemeProvider>
           </SessionProvider>
         </ToastProvider>
       </body>

@@ -5,12 +5,15 @@ import { useEffect, useRef, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { signOut } from "next-auth/react"
+import { useTheme } from '@contexts/ThemeContext';
 
 // LoginActions component - displays the login actions on the navbar
 const LoginActions = () => {
   const session = useSession();
   const [showSubmenu, setShowSubmenu] = useState(false);
   const submenuRef = useRef<HTMLDivElement>(null);
+
+  const { toggleTheme } = useTheme();
   
   const handleChange = () => {
     setShowSubmenu(!showSubmenu);
@@ -24,7 +27,7 @@ const LoginActions = () => {
     function handleClickOutside(event: MouseEvent) {
       if (submenuRef.current && !submenuRef.current.contains(event.target as Node)) {
         handleCloseSubmenu();
-      }
+      }   
     }
 
     document.addEventListener('click', handleClickOutside);
@@ -32,6 +35,11 @@ const LoginActions = () => {
       document.removeEventListener('click', handleClickOutside);
     };
   }, []);
+
+  const handleThemeChange = () => {
+    toggleTheme();
+    handleCloseSubmenu();
+  }  
 
   return (
     <div className="flex-1 sm:flex hidden items-center justify-end">
@@ -61,6 +69,9 @@ const LoginActions = () => {
                     </Link>
                   : null
                 }
+                <p className="py-2 px-4 text-black w-full text-center hover:bg-gray-100 dark:text-zinc-300 hover:dark:bg-zinc-800 cursor-pointer" onClick={handleThemeChange}>
+                  CHANGE THEME
+                </p>
                 <p className="py-2 px-4 text-black w-full text-center hover:bg-gray-100 cursor-pointer dark:text-zinc-300 hover:dark:bg-zinc-800" onClick={() => signOut()}>
                   LOGOUT
                 </p>

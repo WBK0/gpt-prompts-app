@@ -42,7 +42,7 @@ const Content = () => {
               <p className='font-gilroyBold text-xl py-3 hover:text-gray-300 w-full text-center' onClick={() => signOut()}>LOGOUT</p>
             </>
           }
-          
+
         </div>
       }
       
