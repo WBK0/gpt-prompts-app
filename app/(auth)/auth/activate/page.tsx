@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Redirect from "./redirect";
+import Redirect from "../../../../components/redirect";
 
 interface ActivateParams {
   searchParams: {

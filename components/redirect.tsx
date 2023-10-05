@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const Redirect = () => {
-  const [time, setTime] = useState<number>(5000);
+  const [time, setTime] = useState<number>(4000);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -22,7 +22,7 @@ const Redirect = () => {
 
   return (
     <div className="relative mt-3 ">
-      <div className="border-2 border-blue-500 absolute" style={{width: (time * 100 / 5000 + "%"), display: time !== 0 ? 'block' : 'none'}}>
+      <div className="border-2 border-blue-500 absolute" style={{width: (time * 100 / 4000 + "%"), display: time !== 0 ? 'block' : 'none'}}>
       </div>
     </div>
   )

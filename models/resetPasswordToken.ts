@@ -9,8 +9,9 @@ const ResetPasswordTokenSchema = new Schema({
     type: String,
     required: [true, 'Token is required!'],
   },
-  expiresAt: {
+  expireAt: {
     type: Date,
+    expires: 0,
     required: [true, 'Expires is required!'],
   }
 });

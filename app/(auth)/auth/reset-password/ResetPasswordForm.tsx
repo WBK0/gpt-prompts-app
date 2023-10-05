@@ -2,6 +2,7 @@
 import AuthButton from "@components/Auth/AuthButton";
 import AuthInput from "@components/Auth/AuthInput";
 import { ResetPasswordErrors, useLoginValidate } from "@hooks/useLoginValidate";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
@@ -16,6 +17,8 @@ const ResetPasswordForm = ({ token } : { token: string }) => {
   });
   const [focusElement, setFocusElement] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+  const router = useRouter();
 
   const { validateResetPassword } = useLoginValidate();
 
@@ -41,9 +44,8 @@ const ResetPasswordForm = ({ token } : { token: string }) => {
           passwordConfirmation: passwords.passwordConfirmation
         })
       })
-      if(res.ok){
-        console.log("Password reset successfully");
-        
+      if(res.ok){  
+        router.push("/auth/reset-password/success")
       }else{
         throw new Error("Error resetting password");
       }

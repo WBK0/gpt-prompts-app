@@ -4,9 +4,12 @@ import { toast } from 'react-toastify';
 interface ActiveAccountModalProps{
   handleClose: () => void;
   email: string;
+  title: string;
+  content: string;
+  url: string;
 }
 
-const ActiveAccountModal = ({ handleClose, email } : ActiveAccountModalProps) => { 
+const EmailSendModal = ({ handleClose, email, title, content, url } : ActiveAccountModalProps) => { 
   const elementRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -23,7 +26,7 @@ const ActiveAccountModal = ({ handleClose, email } : ActiveAccountModalProps) =>
   }
 
   const handleResendEmail = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/auth/activate/resend-email`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API}${url}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -50,20 +53,20 @@ const ActiveAccountModal = ({ handleClose, email } : ActiveAccountModalProps) =>
           X
         </button>
         <div className='absolute top-3 left-0 w-full'>
-          <h3 className='text-center font-gilroyBold'>
-            ACTIVE ACCOUNT
+          <h3 className='text-center font-gilroyBold uppercase'>
+            {title}
           </h3>
         </div>
         <div className='mt-10 flex justify-center flex-wrap mb-4'>
           <h1 className='font-gilroyBold text-center'>
-            We sent you an e-mail to confirm your account. Please check your inbox and click on the link to activate your account.
+            {content}
           </h1>
           <p className='font-gilroyMedium mt-5'>
             If you didn't receive the e-mail, please check your spam folder. If you still can't find it, click on the button below to resend the e-mail.
           </p>
           <button 
             className='w-full rounded-xl text-center bg-blue-500 text-white py-2 font-gilroyBold hover:bg-blue-600 cursor-pointer mt-6'
-            onClick={() => handleResendEmail}
+            onClick={() => handleResendEmail()}
           >
             Resend e-mail
           </button>
@@ -73,4 +76,4 @@ const ActiveAccountModal = ({ handleClose, email } : ActiveAccountModalProps) =>
   )
 }
 
-export default ActiveAccountModal;
+export default EmailSendModal;

@@ -2,6 +2,7 @@ import User from "@models/user";
 import { connectToDB } from "@utils/database";
 import { NextResponse } from "next/server";
 import sendResetPasswordMail from "@utils/sendResetPasswordMail";
+import ResetPasswordToken from "@models/resetPasswordToken";
 
 export async function POST(req: Request) {
   try {
@@ -17,13 +18,15 @@ export async function POST(req: Request) {
 
     const accountExists = await User.findOne({ email: email });
 
+    await ResetPasswordToken.deleteMany({ email: email });
+
     if(!accountExists || !accountExists.isActive){
       return new NextResponse(JSON.stringify("We can't find account with that e-mail address"), { status: 400 });
     }
 
     const isMailSended = await sendResetPasswordMail(email);
     
-     if(!isMailSended){
+    if(!isMailSended){
       return new NextResponse(JSON.stringify("Something went wrong"), { status: 500 });
     }
 

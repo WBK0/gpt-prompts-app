@@ -9,7 +9,7 @@ const sendResetPasswordMail = async (email : string) => {
     const newResetPasswordToken = new ResetPasswordToken({
       token: resetPasswordToken,
       email: email,
-      expiresAt: new Date(Date.now() + 15 * 60 * 1000) // 15 minutes
+      expireAt: new Date(Date.now() + 15 * 60 * 1000) // 15 minutes
     });
     await newResetPasswordToken.save();
 

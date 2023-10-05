@@ -4,10 +4,12 @@ import { useState } from "react";
 import AuthButton from "@components/Auth/AuthButton";
 import Link from "next/link";
 import { toast } from "react-toastify";
+import EmailSendModal from "@components/Modal/EmailSendModal";
 
 const SendMailForm = ({ sessionEmail, sessionProvider } : { sessionEmail?: string | null, sessionProvider: string | unknown}) => {
   const [email, setEmail] = useState<string>(sessionEmail || "");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -24,6 +26,7 @@ const SendMailForm = ({ sessionEmail, sessionProvider } : { sessionEmail?: strin
       })
       if(response.ok){
         toast.success("Email sent successfully");
+        setIsModalOpen(true);
       }else{
         throw new Error("Error sending email");
       }
@@ -36,6 +39,17 @@ const SendMailForm = ({ sessionEmail, sessionProvider } : { sessionEmail?: strin
 
   return (
     <>
+      {
+        isModalOpen
+        ? <EmailSendModal
+            handleClose={() => setIsModalOpen(false)}
+            email={email}
+            title="Reset password"
+            content="We sent you an email with a link to reset your password. Please check your inbox and follow the instructions."
+            url="/auth/reset-password/send-email"
+          />
+        : null
+      }
       {
         sessionProvider === "credentials" || !sessionProvider
         ? 

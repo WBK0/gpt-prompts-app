@@ -6,7 +6,7 @@ import { useState } from "react"
 import { userData } from "@interfaces/UserData.interface"
 import { RegisterErrors } from "@hooks/useLoginValidate"
 import { toast } from "react-toastify";
-import ActiveAccountModal from "@components/Modal/ActiveAccountModal";
+import EmailSendModal from "@components/Modal/EmailSendModal";
 
 const Form = () => {
   const [userData ,setUserData] = useState<userData>({
@@ -84,9 +84,12 @@ const Form = () => {
     <>
       {
         isModalOpen
-        ? <ActiveAccountModal 
+        ? <EmailSendModal 
             handleClose={() => setIsModalOpen(false)}
             email={userData.email}
+            title="Active account"
+            content="We sent you an e-mail to confirm your account. Please check your inbox and click on the link to activate your account."
+            url="/auth/activate/resend-email"
           />
         : null
       }
