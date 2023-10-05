@@ -14,7 +14,7 @@ const TagsList = ({ tags, setTags } : TagsListProps) => {
   return (
     <div className='flex flex-wrap w-full gap-2 mb-4'>
       {tags.map((tag, index) => (
-        <div key={index} className="flex items-center max-w-full px-3 py-2 space-x-2 bg-gray-200 rounded-md font-gilroyMedium">
+        <div key={index} className="flex items-center max-w-full px-3 py-2 space-x-2 bg-gray-200 dark:bg-zinc-600 dark:text-zinc-100 rounded-md font-gilroyMedium">
           <span className='max-w-full truncate'>{tag}</span>                  
           <button type="button" onClick={() => handleRemoveTag(index)}>
             <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-gray-500 hover:text-gray-700" viewBox="0 0 20 20" fill="currentColor">

@@ -78,7 +78,7 @@ const ResetPasswordForm = ({ token } : { token: string }) => {
 
   return (
     <>
-      <h1 className="text-4xl font-gilroyHeavy mb-8">Reset Password</h1>
+      <h1 className="text-4xl font-gilroyHeavy mb-8 dark:text-white">Reset Password</h1>
       <form className="space-y-4" onSubmit={handleSubmit}>
         <AuthInput
           name="password"

@@ -55,9 +55,9 @@ const PromptForm = () => {
 
   return (
     <form className="max-w-4xl mx-auto mt-8 mb-8">
-      <div className='px-4 py-4 mx-3 bg-white rounded-md lg:px-6 lg:py-6 drop-shadow'>
+      <div className='px-4 py-4 mx-3 bg-white dark:bg-zinc-800 rounded-md lg:px-6 lg:py-6 drop-shadow'>
         <div className='flex flex-col space-y-3'>
-          <h1 className="text-3xl font-gilroyBold text-center mb-4">Add new prompt</h1>
+          <h1 className="text-3xl font-gilroyBold text-center mb-4 dark:text-white">Add new prompt</h1>
           <TitleInput title={title} setTitle={setTitle} titleError={titleError} />
           <PromptInput prompt={prompt} setPrompt={setPrompt} promptError={promptError} />
           <Tags tags={tags} setTags={setTags} tagsError={tagsError} />

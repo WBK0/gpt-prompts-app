@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-gray-100">
+      <body className="bg-gray-100 dark:bg-zinc-900">
         <ToastProvider>
           <UserProvider>
             <Navbar />

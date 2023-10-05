@@ -14,13 +14,13 @@ const TitleInput = ({ title, setTitle, titleError } : TitleInputProps) => {
 
   return (
     <>
-      <label htmlFor="title" className="text-lg text-gray-700 font-gilroyBold">Title:</label>
+      <label htmlFor="title" className="text-lg text-gray-700 dark:text-zinc-200 font-gilroyBold">Title:</label>
       <input 
         type="text" 
         id="title" 
         value={title} 
         onChange={handleTitleChange} 
-        className={`px-3 py-2 border rounded-md font-gilroyMedium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${titleError ? 'border-red-500 border-2' : 'border-gray-400'}`}
+        className={`px-3 py-2 dark:bg-zinc-700 dark:text-zinc-200 dark:border-zinc-700 border rounded-md font-gilroyMedium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${titleError ? 'border-red-500 border-2' : 'border-gray-400'}`}
       />
     </>
   )

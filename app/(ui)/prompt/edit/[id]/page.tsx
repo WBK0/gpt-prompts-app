@@ -100,7 +100,7 @@ const PromptEditForm = ({ params }: { params: {id : string}}) => {
         </div>
         :
         <form className="max-w-4xl mx-auto mt-8 mb-8">
-          <div className='px-4 py-4 mx-3 bg-white rounded-md lg:px-6 lg:py-6 drop-shadow'>
+          <div className='px-4 py-4 mx-3 bg-white rounded-md lg:px-6 lg:py-6 drop-shadow dark:bg-zinc-800'>
             <div className='flex flex-col space-y-3'>
               <h1 className="text-3xl font-gilroyBold text-center mb-4">Edit prompt</h1>
               <TitleInput title={title} setTitle={setTitle} titleError={titleError}/>

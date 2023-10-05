@@ -29,7 +29,7 @@ const PromptSite = async ({ params } : PromptProps) => {
     <div className="mt-6">{
       prompt ?
       <>
-        <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+        <div className="max-w-4xl mx-auto bg-white dark:bg-zinc-800 rounded-lg shadow-lg overflow-hidden">
           <div className="px-4 lg:px-6 lg:py-6 py-4">
             <Title title={prompt.title} />
             <Creator createdAt={prompt.createdAt} creatorName={prompt.creatorName} />
@@ -37,7 +37,7 @@ const PromptSite = async ({ params } : PromptProps) => {
             <GptAnswer answer={prompt.response} />
             <Tags tags={prompt.tags} />
           </div>
-          <div className="px-6 py-4 bg-gray-100 flex items-center justify-between">
+          <div className="px-6 py-4 bg-gray-100 dark:bg-zinc-900 flex items-center justify-between">
             <AddToFavorite favorites={prompt.favorites} id={prompt._id} isFavorite={prompt.isLiked}/>
             {
               session?.user?.id === prompt?.creatorId

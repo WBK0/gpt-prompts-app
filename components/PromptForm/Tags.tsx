@@ -31,7 +31,7 @@ const Tags = ({ tags, setTags, tagsError }: TagsProps) => {
 
   return (
     <>
-      <label htmlFor="tags" className="text-lg text-gray-700 font-gilroyBold">Tags:</label>
+      <label htmlFor="tags" className="text-lg text-gray-700 font-gilroyBold dark:text-zinc-200">Tags:</label>
       <div className="flex flex-wrap">
         <TagsList tags={tags} setTags={setTags} />
         <TagsInput tagInput={tagInput} setTagInput={setTagInput} handleAddTag={handleAddTag} tagsError={tagsError}/>

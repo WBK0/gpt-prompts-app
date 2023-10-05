@@ -24,7 +24,7 @@ const Activate = async (params: ActivateParams) => {
           ? <i className="bi bi-check font-96 text-9xl text-green-800 w-full text-center"></i>
           : <i className="bi bi-x font-96 text-9xl text-red-600 w-full text-center"></i>
         }
-        <h1 className="w-full text-center font-gilroyBold pb-9 text-lg">
+        <h1 className="w-full text-center font-gilroyBold pb-9 text-lg dark:text-white">
           {
             response.ok
             ? 'Your account has been successfully activated!'

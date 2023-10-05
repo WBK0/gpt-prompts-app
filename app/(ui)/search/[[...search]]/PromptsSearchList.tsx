@@ -79,7 +79,7 @@ const PromptsList = ({ params, url } : { params : SearchParams, url: String}) =>
             }
           </div>
           : 
-            <h1 className='text-2xl font-gilroyBold'>No prompts found</h1>  
+            <h1 className='text-2xl font-gilroyBold dark:text-zinc-300'>No prompts found</h1>  
         }
       <div className="flex items-center justify-center h-[60px] mt-6">
         {
@@ -91,7 +91,7 @@ const PromptsList = ({ params, url } : { params : SearchParams, url: String}) =>
               && 
                 prompts.length > 0 
               ? 
-                <h1 className='text-2xl font-gilroyBold'>No more prompts found</h1> : null
+                <h1 className='text-2xl font-gilroyBold dark:text-zinc-300'>No more prompts found</h1> : null
         } 
       </div>   
     </div>

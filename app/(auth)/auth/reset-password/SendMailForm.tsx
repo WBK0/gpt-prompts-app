@@ -54,7 +54,7 @@ const SendMailForm = ({ sessionEmail, sessionProvider } : { sessionEmail?: strin
         sessionProvider === "credentials" || !sessionProvider
         ? 
         <>
-          <h1 className="text-4xl font-gilroyHeavy mb-8">Reset Password</h1>
+          <h1 className="text-4xl font-gilroyHeavy mb-8 dark:text-white">Reset Password</h1>
             <form className="space-y-4 w-full" onSubmit={handleSubmit}>
               <AuthInput
                 name="email"

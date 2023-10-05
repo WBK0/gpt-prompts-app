@@ -24,7 +24,7 @@ const Searchbar = ({ baseUrl } : {baseUrl : string}) => {
         <input 
           type='text' 
           placeholder='Search by tag or prompt' 
-          className='flex-1 drop-shadow px-4 py-2 text-lg font-gilroyBold text-gray-800 bg-slate-50 ring-gray-100 ring-1 border-gray-100 rounded-l-md focus:outline-none focus:ring-1 focus:ring-pink-500 focus:border-transparent z-10' 
+          className='flex-1 drop-shadow px-4 py-2 text-lg font-gilroyBold text-gray-800 bg-slate-50 dark:bg-zinc-800 dark:ring-zinc-800 dark:text-zinc-200 ring-gray-100 ring-1 border-gray-100 rounded-l-md focus:outline-none focus:ring-1 focus:ring-pink-500 focus:border-transparent z-10' 
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />

@@ -17,7 +17,7 @@ const AuthInput = ({name, placeholder, type, handleWrite, handleFocus, handleBlu
       <input 
         type={type} 
         placeholder={placeholder}
-        className={`rounded-lg w-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 font-gilroyBold ${error ? 'ring-2 ring-red-600' : null} disabled:bg-gray-200 disabled:cursor-not-allowed disabled:text-gray-800`} 
+        className={`rounded-lg w-full px-4 py-2 dark:bg-zinc-800 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-blue-400 font-gilroyBold ${error ? 'ring-2 ring-red-600' : null} disabled:bg-gray-200 disabled:dark:bg-zinc-800 disabled:cursor-not-allowed disabled:text-gray-800 disabled:dark:text-zinc-300`} 
         name={name} 
         onChange={handleWrite} 
         onFocus={handleFocus}

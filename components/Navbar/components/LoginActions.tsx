@@ -50,18 +50,18 @@ const LoginActions = () => {
               </button>
             )}
             {showSubmenu && (
-              <div className="absolute right-0 mt-1 bg-white border border-gray-300 shadow-md min-w-[200px] flex justify-center flex-wrap py-2 font-gilroyBold">
-                <Link href="/user/prompts" className="py-2 px-4 text-black w-full text-center hover:bg-gray-100" onClick={handleCloseSubmenu}>
+              <div className="absolute right-0 mt-1 bg-white dark:bg-zinc-900 dark:border-noneborder border-gray-300 shadow-md min-w-[200px] flex justify-center flex-wrap py-2 font-gilroyBold">
+                <Link href="/user/prompts" className="py-2 px-4 text-black w-full text-center hover:bg-gray-100 dark:text-zinc-300 hover:dark:bg-zinc-800" onClick={handleCloseSubmenu}>
                   MY PROMPTS
                 </Link>
                 {
                   session.data?.user?.provider === 'credentials'
-                  ? <Link href="/auth/reset-password" className="py-2 px-4 text-black w-full text-center hover:bg-gray-100" onClick={handleCloseSubmenu}>
+                  ? <Link href="/auth/reset-password" className="py-2 px-4 text-black w-full text-center hover:bg-gray-100 dark:text-zinc-300 hover:dark:bg-zinc-800" onClick={handleCloseSubmenu}>
                       CHANGE PASSWORD
                     </Link>
                   : null
                 }
-                <p className="py-2 px-4 text-black w-full text-center hover:bg-gray-100 cursor-pointer" onClick={() => signOut()}>
+                <p className="py-2 px-4 text-black w-full text-center hover:bg-gray-100 cursor-pointer dark:text-zinc-300 hover:dark:bg-zinc-800" onClick={() => signOut()}>
                   LOGOUT
                 </p>
               </div>

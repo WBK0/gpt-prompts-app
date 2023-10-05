@@ -8,7 +8,7 @@ const Creator = ({creatorName, createdAt} : {creatorName: string, createdAt: Dat
 
   return (
     <div className="mt-4">
-      <p className="text-gray-500 text-sm font-gilroyLight">{creatorName} | {formattedDate}</p>
+      <p className="text-gray-500 dark:text-zinc-300 text-sm font-gilroyLight">{creatorName} | {formattedDate}</p>
     </div>
   )
 }

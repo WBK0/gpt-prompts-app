@@ -8,7 +8,7 @@ const Hero = () => {
         <p className='font-gilroyHeavy text-4xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-rose-500'>
           GPT PROMPTS APP
         </p>
-        <p className='mt-2 font-gilroyHeavy text-3xl text-gray-800'>
+        <p className='mt-2 font-gilroyHeavy text-3xl text-gray-800 dark:text-zinc-300'>
           Search best prompts for your usage
         </p>
       </h1>

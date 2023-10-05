@@ -51,12 +51,12 @@ const PromptCard = ({ prompt, refreshPrompts }: {prompt: Prompt, refreshPrompts?
   }
 
   return (
-    <div className='bg-white rounded-lg shadow-md overflow-hidden w-full flex flex-col'>
+    <div className='bg-white dark:bg-zinc-800 rounded-lg shadow-md overflow-hidden w-full flex flex-col'>
       <div className='px-4 py-3 flex justify-between items-center'>
-        <h2 className='text-xl font-gilroyBold w-full'>{prompt.title}</h2>
+        <h2 className='text-xl font-gilroyBold w-full text-black dark:text-white'>{prompt.title}</h2>
         <div className='flex items-center'>
           <button 
-            className={`${isLiked ? 'text-red-500 ': 'text-gray-200 '} font-bold py-1 px-1 text-3xl rounded-xl`} 
+            className={`${isLiked ? 'text-red-500 ': 'text-gray-200 dark:text-zinc-600'} font-bold py-1 px-1 text-3xl rounded-xl`} 
             onClick={handleClick}
           >
             <FontAwesomeIcon icon={faHeart} width={32} height={32}/>
@@ -64,10 +64,10 @@ const PromptCard = ({ prompt, refreshPrompts }: {prompt: Prompt, refreshPrompts?
         </div>
       </div>
       <div className='p-4 flex-1 flex flex-wrap flex-col'>
-        <p className='text-gray-700 font-gilroyLight mb-4 w-full'>{prompt.content}</p>
+        <p className='text-gray-700 dark:text-zinc-200 font-gilroyLight mb-4 w-full'>{prompt.content}</p>
         <Tags tags={prompt.tags} />
       </div>
-      <div className='bg-gray-100 px-4 py-3 flex justify-end'>
+      <div className='bg-gray-100 dark:bg-zinc-900 px-4 py-3 flex justify-end'>
         <Link href={`/prompt/${prompt._id}`} className='font-gilroyBold text-sm hover:text-gray-300'>
           <button className='bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-xl'>
             View prompt
