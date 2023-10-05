@@ -28,6 +28,9 @@ const Login = async () => {
         <Link href="/auth/register" className="mt-4 font-gilroyBold text-gray-500 hover:text-black">
           Don't have account? Register now!
         </Link>
+        <Link href="/auth/reset-password" className="mt-2 font-gilroyBold text-gray-500 hover:text-black">
+          Forgot password?
+        </Link>
       </div>
     </div>
   )

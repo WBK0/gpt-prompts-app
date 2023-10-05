@@ -34,6 +34,11 @@ const Content = () => {
             : 
             <>
               <Link href="/user/prompts" className='font-gilroyBold text-xl py-3 hover:text-gray-300 w-full text-center'>MY PROMPTS</Link>
+              {
+                session.data?.user?.provider === 'credentials' 
+                ? <Link href="/auth/reset-password" className='font-gilroyBold text-xl py-3 hover:text-gray-300 w-full text-center'>CHANGE PASSWORD</Link>
+                : null
+              }
               <p className='font-gilroyBold text-xl py-3 hover:text-gray-300 w-full text-center' onClick={() => signOut()}>LOGOUT</p>
             </>
           }

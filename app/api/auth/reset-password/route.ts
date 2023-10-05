@@ -2,7 +2,7 @@ import { connectToDB } from "@utils/database";
 import { NextResponse } from "next/server";
 import ResetPasswordToken from "@models/resetPasswordToken";
 import User from "@models/user";
-import { hash } from "bcryptjs";
+import { compare, hash } from "bcryptjs";
 import sendConfirmationResetPassword from "@utils/sendConfirmationResetPassword";
 
 export async function POST(req: Request) {
@@ -21,7 +21,15 @@ export async function POST(req: Request) {
       return new NextResponse(JSON.stringify("Passwords do not match"), { status: 400 });
     }
 
-    const resetToken = await ResetPasswordToken.findOneAndDelete({ token: token });
+    const resetToken = await ResetPasswordToken.findOne({ token: token });
+
+    const user = await User.findOne({ email: resetToken?.email });
+
+    if(await compare(password, user?.password)){
+      return new NextResponse(JSON.stringify("You can't use your previous password as new password"), { status: 400 });
+    }
+
+    await ResetPasswordToken.deleteOne({ token: token });
 
     if(!resetToken){
       return new NextResponse(JSON.stringify("You provided wrong token or it has expired"), { status: 400 });
@@ -29,7 +37,7 @@ export async function POST(req: Request) {
     
     const hashed_password = await hash(password, 12);
 
-    const updatePassword = await User.findOneAndUpdate({email: resetToken?.email}, {password: hashed_password, updatedAt: Date.now()});
+    await User.findOneAndUpdate({email: resetToken?.email}, {password: hashed_password, updatedAt: Date.now()});
 
     const isMailSended = await sendConfirmationResetPassword(resetToken?.email);
     

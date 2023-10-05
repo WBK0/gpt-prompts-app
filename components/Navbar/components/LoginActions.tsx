@@ -54,6 +54,13 @@ const LoginActions = () => {
                 <Link href="/user/prompts" className="py-2 px-4 text-black w-full text-center hover:bg-gray-100" onClick={handleCloseSubmenu}>
                   MY PROMPTS
                 </Link>
+                {
+                  session.data?.user?.provider === 'credentials'
+                  ? <Link href="/auth/reset-password" className="py-2 px-4 text-black w-full text-center hover:bg-gray-100" onClick={handleCloseSubmenu}>
+                      CHANGE PASSWORD
+                    </Link>
+                  : null
+                }
                 <p className="py-2 px-4 text-black w-full text-center hover:bg-gray-100 cursor-pointer" onClick={() => signOut()}>
                   LOGOUT
                 </p>

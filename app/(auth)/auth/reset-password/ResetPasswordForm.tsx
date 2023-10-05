@@ -30,7 +30,7 @@ const ResetPasswordForm = ({ token } : { token: string }) => {
       setErrors(validateErrors);
       
       if(validateErrors.password || validateErrors.passwordConfirmation){
-        throw new Error("Validation error");
+        throw new Error(validateErrors.password || validateErrors.passwordConfirmation || "Error");
       }
       
       const res = await fetch(`${process.env.NEXT_PUBLIC_API}/auth/reset-password`, {
@@ -47,7 +47,8 @@ const ResetPasswordForm = ({ token } : { token: string }) => {
       if(res.ok){  
         router.push("/auth/reset-password/success")
       }else{
-        throw new Error("Error resetting password");
+        const data = await res.json();
+        throw new Error(data);
       }
 
     } catch (error : unknown) {
