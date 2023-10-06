@@ -1,3 +1,4 @@
+import Footer from "@components/Footer";
 import Navbar from "@components/Navbar/Navbar";
 import ToastProvider from "@components/Providers/ToastProvider";
 import UserProvider from "@components/Providers/UserProvider";
@@ -23,9 +24,10 @@ export default function RootLayout({
           <UserProvider>
             <ThemeProvider>
               <Navbar />
-              <div className="container mx-auto pt-12">
+              <div className="container mx-auto pt-12 min-h-screen">
                 {children}
               </div>
+              <Footer />
             </ThemeProvider>
           </UserProvider>
         </ToastProvider>
